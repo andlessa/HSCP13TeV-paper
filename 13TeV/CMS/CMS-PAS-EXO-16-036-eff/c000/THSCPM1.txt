@@ -1,0 +1,11 @@
+txName: THSCPM1
+constraint: [[],[]]
+condition: None
+susyProcess: pp --> chargino^pm_1 chargino^pm_1, chargino^pm_1 chargino^pm_1 --> chargino^pm_1 chargino^pm_1
+dataUrl: None
+source: SModelS
+validated: TBD
+axes: [[x], [x]]
+finalState: ['HSCP', 'HSCP']
+efficiencyMap: [[[[1.5000E+02*GeV],[1.5000E+02*GeV]],0.20252],
+[[[1.0000E+02*GeV],[1.0000E+02*GeV]],0.1341]]
