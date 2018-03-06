@@ -37,7 +37,7 @@ from smodels_utils.dataPreparation.massPlaneObjects import x, y, z
 
 
 #+++++++ global info block ++++++++++++++
-info = MetaInfoInput('CMS-EXO-13-006')
+info = MetaInfoInput('CMS-PAS-EXO-16-036')
 info.url = 'http://cms-results.web.cern.ch/cms-results/public-results/preliminary-results/EXO-16-036/index.html'
 info.sqrts = 13
 info.lumi = 12.9
@@ -47,10 +47,10 @@ info.contact ='Andre Lessa <lessa.a.p@gmail.com>; Jan Heisig <heisig@physik.rwth
 info.comment ='Search for long-lived charged particles implemented using a correction factor for the 8 TeV efficiencies.'
 
 #++Define list of datasets++
-datasetNames = ['c000','c100','c200','c300','c400','c500','c600']
-observedNs = [50,8,2,1,1,1,0]
-expectedBGs = [53.1,7.7,0.82,0.15,0.04,0.005,0.0001]
-bgErrors = [10.6,1.5,0.17,0.03,0.01,0.005,0.0001]
+datasetNames = ['c000','c100','c200','c300']
+observedNs = [5,1,0,0] #Extracted from a fit of the data
+expectedBGs = [2.63,0.3377,0.0258,0.0045] #Extracted from a log fit of CMS BG
+bgErrors = [0.53,0.127,0.0036,0.001] #Estimated from the error between a log fit and a linear fit of the CMS BG
 #obsUpperLimits = ['1.15*fb','0.441*fb','0.16*fb','0.159*fb']
 #expUpperLimits = ['1.23*fb','0.338*fb','0.16*fb','0.159*fb']
 for i,name in enumerate(datasetNames):
@@ -71,7 +71,7 @@ for i,name in enumerate(datasetNames):
     HSCPM1.source = 'SModelS'
     #+++++++ next mass plane block ++++++++++++++
     plane = HSCPM1.addMassPlane([[x],[x]])
-    plane.setSources(dataLabels= ['efficiencyMap'],dataFiles=['orig/effmap_M1_chargino_allfit_mre'+name+'_clean.txt'], dataFormats=['txt'])
+    plane.setSources(dataLabels= ['efficiencyMap'],dataFiles=['orig/effmap_M1_chargino_cons_mre'+name+'_clean.txt'], dataFormats=['txt'])
 #    plane.addSource(dataLabels='obsExclusion',dataFiles='orig/CMS-PAS-EXO-16-036_Figure_003-b.dat', dataFormats='txt', unit='pb')
     #+++++++ next txName block ++++++++++++++
     HSCPM3 = dataset.addTxName('THSCPM3')
@@ -85,7 +85,7 @@ for i,name in enumerate(datasetNames):
     HSCPM3.source = 'SModelS'
     #+++++++ next mass plane block ++++++++++++++
     plane = HSCPM3.addMassPlane([[x,y],[x,y]])
-    plane.setSources(dataLabels= ['efficiencyMap'],dataFiles=['orig/effmap_M3_chargino_allfit_mre'+name+'_clean.txt'], dataFormats=['txt'])
+    plane.setSources(dataLabels= ['efficiencyMap'],dataFiles=['orig/effmap_M3_chargino_cons_mre'+name+'_clean.txt'], dataFormats=['txt'])
     #+++++++ next txName block ++++++++++++++
     HSCPM5 = dataset.addTxName('THSCPM5')
     HSCPM5.checked =''
@@ -98,7 +98,7 @@ for i,name in enumerate(datasetNames):
     HSCPM5.source = 'SModelS'
     #+++++++ next mass plane block ++++++++++++++
     plane = HSCPM5.addMassPlane([[x,y,z]]*2)
-    plane.setSources(dataLabels= ['efficiencyMap'],dataFiles=['orig/effmap_M5_stau_allfit_mre'+name+'_clean.txt'], dataFormats=['txt'])
+    plane.setSources(dataLabels= ['efficiencyMap'],dataFiles=['orig/effmap_M5_stau_cons_mre'+name+'_clean.txt'], dataFormats=['txt'])
     #+++++++ next txName block ++++++++++++++
     HSCPM7 = dataset.addTxName('THSCPM7')
     HSCPM7.checked =''
@@ -111,7 +111,7 @@ for i,name in enumerate(datasetNames):
     HSCPM7.source = 'SModelS'
     #+++++++ next mass plane block ++++++++++++++
     plane = HSCPM7.addMassPlane([[x,z],[x,y,z]])
-    plane.setSources(dataLabels= ['efficiencyMap'],dataFiles=['orig/effmap_M7_stau_allfit_mre'+name+'_clean.txt'], dataFormats=['txt'])
+    plane.setSources(dataLabels= ['efficiencyMap'],dataFiles=['orig/effmap_M7_stau_cons_mre'+name+'_clean.txt'], dataFormats=['txt'])
     #+++++++ next txName block ++++++++++++++
     HSCPM8 = dataset.addTxName('THSCPM8')
     HSCPM8.checked =''
@@ -124,7 +124,7 @@ for i,name in enumerate(datasetNames):
     HSCPM8.source = 'SModelS'
     #+++++++ next mass plane block ++++++++++++++
     plane = HSCPM8.addMassPlane([[x,y],[x,y]])
-    plane.setSources(dataLabels= ['efficiencyMap'],dataFiles=['orig/effmap_M8_stau_allfit_mre'+name+'_clean.txt'], dataFormats=['txt'])
+    plane.setSources(dataLabels= ['efficiencyMap'],dataFiles=['orig/effmap_M8_stau_cons_mre'+name+'_clean.txt'], dataFormats=['txt'])
     #+++++++ next txName block ++++++++++++++
     HSCPM2 = dataset.addTxName('THSCPM2')
     HSCPM2.checked =''
@@ -137,7 +137,7 @@ for i,name in enumerate(datasetNames):
     HSCPM2.source = 'SModelS'
     #+++++++ next mass plane block ++++++++++++++
     plane = HSCPM2.addMassPlane([['*'],[x]]) ##Here ['*'] represents a mass array with any length
-    plane.setSources(dataLabels= ['efficiencyMap'],dataFiles=['orig/effmap_M2_chargino_allfit_mre'+name+'_clean.txt'], dataFormats=['txt'])
+    plane.setSources(dataLabels= ['efficiencyMap'],dataFiles=['orig/effmap_M2_chargino_cons_mre'+name+'_clean.txt'], dataFormats=['txt'])
     #+++++++ next txName block ++++++++++++++
     HSCPM4 = dataset.addTxName('THSCPM4')
     HSCPM4.checked =''
@@ -150,7 +150,7 @@ for i,name in enumerate(datasetNames):
     HSCPM4.source = 'SModelS'
     #+++++++ next mass plane block ++++++++++++++
     plane = HSCPM4.addMassPlane([['*'],[x,y]]) ##Here ['*'] represents a mass array with any length
-    plane.setSources(dataLabels= ['efficiencyMap'],dataFiles=['orig/effmap_M4_chargino_allfit_mre'+name+'_clean.txt'], dataFormats=['txt'])
+    plane.setSources(dataLabels= ['efficiencyMap'],dataFiles=['orig/effmap_M4_chargino_cons_mre'+name+'_clean.txt'], dataFormats=['txt'])
     #+++++++ next txName block ++++++++++++++
     HSCPM6 = dataset.addTxName('THSCPM6')
     HSCPM6.checked =''
@@ -163,7 +163,7 @@ for i,name in enumerate(datasetNames):
     HSCPM6.source = 'SModelS'
     #+++++++ next mass plane block ++++++++++++++
     plane = HSCPM6.addMassPlane([['*'],[x,y,z]]) ##Here ['*'] represents a mass array with any length
-    plane.setSources(dataLabels= ['efficiencyMap'],dataFiles=['orig/effmap_M6_stau_allfit_mre'+name+'_clean.txt'], dataFormats=['txt'])
+    plane.setSources(dataLabels= ['efficiencyMap'],dataFiles=['orig/effmap_M6_stau_cons_mre'+name+'_clean.txt'], dataFormats=['txt'])
 
 
 databaseCreator.create()

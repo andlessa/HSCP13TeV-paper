@@ -4,11 +4,11 @@ condition: None
 susyProcess: pp --> chargino^pm_1 chargino^pm_1, chargino^pm_1 chargino^pm_1 --> chargino^pm_1 chargino^pm_1
 dataUrl: None
 source: SModelS
-validated: TBD
+validated: True
 axes: [[x], [x]]
 finalState: ['HSCP', 'HSCP']
-efficiencyMap: [[[[2.0000E+02*GeV],[2.0000E+02*GeV]],0.232],
+efficiencyMap: [[[[3.0000E+02*GeV],[3.0000E+02*GeV]],0.36605],
 [[[1.5000E+02*GeV],[1.5000E+02*GeV]],0.0],
 [[[1.0000E+02*GeV],[1.0000E+02*GeV]],0.0],
-[[[2.5000E+02*GeV],[2.5000E+02*GeV]],0.26702],
-[[[3.0000E+02*GeV],[3.0000E+02*GeV]],0.29349]]
+[[[2.0000E+02*GeV],[2.0000E+02*GeV]],0.27423],
+[[[2.5000E+02*GeV],[2.5000E+02*GeV]],0.3311]]
