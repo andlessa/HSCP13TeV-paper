@@ -1,7 +1,0 @@
-dataId: c600
-dataType: efficiencyMap
-observedN: 0
-expectedBG: 0.0001
-bgError: 0.0001
-upperLimit: 0.233*fb
-expectedUpperLimit: 0.232*fb

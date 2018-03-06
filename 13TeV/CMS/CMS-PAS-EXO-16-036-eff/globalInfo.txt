@@ -1,4 +1,4 @@
-id: CMS-EXO-13-006
+id: CMS-PAS-EXO-16-036
 sqrts: 13*TeV
 lumi: 12.9/fb
 prettyName: hscp search
@@ -7,4 +7,4 @@ contact: Andre Lessa <lessa.a.p@gmail.com>; Jan Heisig <heisig@physik.rwth-aache
 comment: Search for long-lived charged particles implemented using a correction factor for the 8 TeV efficiencies.
 private: False
 implementedBy: Andre Lessa
-lastUpdate: 2017/10/16
+lastUpdate: 2018/2/20

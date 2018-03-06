@@ -1,7 +1,0 @@
-dataId: c400
-dataType: efficiencyMap
-observedN: 1
-expectedBG: 0.04
-bgError: 0.01
-upperLimit: 0.364*fb
-expectedUpperLimit: 0.232*fb
