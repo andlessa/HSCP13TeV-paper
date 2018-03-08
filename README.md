@@ -22,3 +22,13 @@ Not for now
 ## Plotting ##
 
 Not for now
+
+
+## Updating SModelS ##
+
+To update the subtrees smodels and smodels-database, run:
+
+``
+git subtree pull --prefix=smodels-database --squash git@github.com:SModelS/smodels-database.git hscp-patch
+git subtree pull --prefix=smodels --squash git@github.com:SModelS/smodels.git hscp-patch
+``
