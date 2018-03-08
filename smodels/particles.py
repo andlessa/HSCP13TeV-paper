@@ -154,7 +154,7 @@ ptcDic = {"e"  : ["e+",  "e-"],
           "all" : ["e+",  "mu+", "ta+", "e-", "mu-", "ta-", "W+", "W-","Z","photon","higgs","t+","t-","b","c","q","g","c","pi"]}
 
 #Include all R-even particles:
-ptcDic['?'] = rEven.values() + ptcDic.keys()
+ptcDic['?'] = list(rEven.values()) + list(ptcDic.keys())
 
 #Quantum numbers for the new particles.
 #PDG: (spin*2, electrical charge*3, color dimension)
@@ -199,7 +199,9 @@ qNumbers={
 #according to the qNumbers tuples.
 
 finalStates = {
-"HSCP" : [[1,3,1],[1,-3,1],[0,3,1],[0,-3,1],[2,3,1],[2,-3,1],[0,-1,3],[0,1,3]],
+"HSCP" : [[1,3,1],[1,-3,1],[0,3,1],[0,-3,1],[2,3,1],[2,-3,1]],
 "MET" : [[1,0,1],[0,0,1],[2,0,1]],
-"RHadron" : [[1,0,3],[0,0,3],[2,0,3],[1,0,8],[0,0,8],[2,0,8],[0,2,3]]
+"RHadronG" : [[1,0,8]],  #Gluino-like RHadron
+"RHadronQ" : [[0,2,3],[0,-1,3],[0,-2,3],[0,1,3]]  #Squark-like RHadron
 }
+
