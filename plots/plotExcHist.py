@@ -59,15 +59,14 @@ def main(mainRoot,friends,xprint,DoPrint,outputFolder,nbins):
    
     print "8 TeV:", sms8.GetEntries()
     print "13 TeV:",sms13.GetEntries()
-    print "total:",sms8.GetEntries()+sms13.GetEntries()
+    print "total excluded:",sms8.GetEntries()+sms13.GetEntries()    
+    print "allowed:",allowed.GetEntries()
+    print "total:",allHisto.GetEntries()
+
 
     xtotal = allHisto.GetEntries()
-    xexcluded = sms8.GetEntries()+sms13.GetEntries()
+    xexcluded = sms8.GetEntries()+sms13.GetEntries()    
     print "Fraction of excluded = ",xexcluded/xtotal,"Fraction of allowed = ",(xtotal-xexcluded)/xtotal
-    
-    #Normalize bins by total number of points:
-#     sms8.Divide(allHisto)
-#     sms13.Divide(allHisto)
     
     hs =  THStack("","")
     hs.Add(sms8)
@@ -78,6 +77,7 @@ def main(mainRoot,friends,xprint,DoPrint,outputFolder,nbins):
     AuxPlot.Default(plane,"TCanvas")
     plane.cd()
     plane.SetRightMargin(0.05)
+    plane.SetLeftMargin(0.13)
     plane.SetTitle("8 TeV Results")
     
     gStyle.SetOptStat(0)
@@ -92,7 +92,7 @@ def main(mainRoot,friends,xprint,DoPrint,outputFolder,nbins):
     AuxPlot.Default(hs,'TH1')
     hs.GetXaxis().SetTitle(varnames[xprint])
     hs.GetYaxis().SetTitle("Number of Points")
-    hs.GetYaxis().SetTitleOffset(0.75)
+    hs.GetYaxis().SetTitleOffset(0.98)
 
 
     #Legend
@@ -136,7 +136,7 @@ if __name__ == "__main__":
     ap.add_argument('-o', '--output', 
             help='Name of output folder to save plots', type = str, default = './')
     ap.add_argument('-n', '--nbins', 
-            help='Number of bins to show', type = int, default = 50)
+            help='Number of bins to show', type = int, default = 20)
 
     
     args = ap.parse_args()

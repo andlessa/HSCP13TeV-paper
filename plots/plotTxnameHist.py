@@ -77,6 +77,7 @@ def main(mainRoot,friends,xprint,DoPrint,outputFolder,nbins):
                 tp = 'EM'
 
         txname = str(AuxPlot.GetValue(tree,'TxNames_%s_%s' %(tp,sqrts)))
+        
         if '+' in txname and 'HSCP' in txname:
             txname = 'Multiple HSCP SMS'
         
