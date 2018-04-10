@@ -4,33 +4,18 @@
 
 import os
 import argparse
-from collections import OrderedDict
-from prettyDescriptions import prettyTxname
+import numpy as np
+from array import array
 
-
-xmin = 500.
-xmax = 5000.
+xmin, xmax = 1e5,1e10
 
 
 def main(mainRoot,friends,xprint,DoPrint,outputFolder,nbins):
 
     import AuxPlot
-    from ROOT import ( kAzure,kRed,kGreen,kGray,kMagenta,kCyan,kViolet,kPink,
-                    kOrange,kBlack,TGraph,gDirectory,gStyle,
-                    TFile,TCanvas,TH1F,TLegend,gPad,THStack,TLatex )
+    from ROOT import (kAzure,kRed,kGreen,kGray,kMagenta,kOrange,kBlack,TGraph,
+                      gDirectory,gStyle,TFile,TCanvas,TH1F,TLegend,gPad,THStack,TLatex)
     
-    cList = [kPink,kGreen,kMagenta,kRed,kAzure,kOrange,kCyan,kViolet]
-    nc = len(cList)
-    for c in cList[:nc]:
-        cList.append(c+3)
-    for c in cList[:nc]:
-        cList.append(c-3)
-    for c in cList[:nc]:
-        cList.append(c-2)
-    for c in cList[:nc]:
-        cList.append(c+2)
-        
-
     
     filename,friends = AuxPlot.infiles([mainRoot]+friends)
     print "Reading",filename,"..."
@@ -38,16 +23,21 @@ def main(mainRoot,friends,xprint,DoPrint,outputFolder,nbins):
     #Get tree and additional info
     tree,lnames,_ = AuxPlot.getTree(gDirectory,friends,verbose=True)
     varnames = AuxPlot.GetVarNames(lnames+[xprint])
+    #Make sure friends are properly ordered
+#     if not AuxPlot.checkOrderBy('filename',tree,friends):
+#         sys.exit()
 
     #Get all analyses names and create histograms for all of them
     nevts = tree.GetEntries()
 
-
+    xbins = [10**y for y in np.arange(np.log10(xmin),np.log10(xmax),np.log10(xmax/xmin)/nbins)]
+    xbins = array('d',xbins)
     #Define histograms:
-    txHists = OrderedDict()
-    colors = {}
-    allHisto = TH1F("All","",nbins,xmin,xmax)
+    allowed = TH1F("Allowed","",len(xbins)-1,xbins)
+    sms8 = TH1F("Excluded by 8 TeV","",len(xbins)-1,xbins)
+    sms13 = TH1F("Excluded by 13 TeV","",len(xbins)-1,xbins)
     #Loop over events
+
     for iev in range(nevts):
         tree.GetEntry(iev)
         
@@ -57,90 +47,66 @@ def main(mainRoot,friends,xprint,DoPrint,outputFolder,nbins):
         robsEM8 = AuxPlot.GetValue(tree,'robs_EM_8')
         robsUL13 = AuxPlot.GetValue(tree,'robs_UL_13')
         robsEM13 = AuxPlot.GetValue(tree,'robs_EM_13')
-
-        allHisto.Fill(xval)
-        #Skip not excluded:
-        if max([robsUL8,robsEM8,robsUL13,robsEM13]) < 1.:            
-            continue
-
-        if max([robsUL8,robsEM8]) > max([robsUL13,robsEM13]):
-            sqrts = '8'
-            if robsUL8 > robsEM8:
-                tp = 'UL'
-            else:
-                tp = 'EM'
-        else:
-            sqrts = '13'
-            if robsUL13 > robsEM13:
-                tp = 'UL'
-            else:
-                tp = 'EM'
-
-        txname = str(AuxPlot.GetValue(tree,'TxNames_%s_%s' %(tp,sqrts)))
-        
-       
-        if '+' in txname and 'HSCP' in txname:
-            txname = 'Multiple HSCP SMS'
-        
-        if not txname in txHists:
-            txHists[txname] = TH1F(txname,"",nbins,xmin,xmax)
+   
+        if max([robsUL8,robsEM8,robsUL13,robsEM13]) < 1.:
+            allowed.Fill(xval)            
+        elif max([robsUL8,robsEM8]) > 1.:
+            sms8.Fill(xval)
+        elif max([robsUL13,robsEM13]) > 1.:
+            sms13.Fill(xval)
             
-        txHists[txname].Fill(xval)
+    print "total excluded:",sms8.GetEntries() + sms13.GetEntries()
+    print "allowed:",allowed.GetEntries()
+
+
     
-    
-    #Create compact summary:
     hs =  THStack("","")
-    #Sort txnames by maximum contribution:
-    txHists = OrderedDict(sorted(txHists.iteritems(), 
-                                 key=lambda x: x[1].GetEntries(),
-                                 reverse=True))
-    for txname in txHists:
-        if txname == 'Other':      
-            colors[txname] = kGray+1
-        else:
-            colors[txname] = cList.pop()
-        txHists[txname].SetFillColor(colors[txname])
-        txHists[txname].SetLineColor(colors[txname])
-        print('Excluded by',txname,':',txHists[txname].GetEntries())     
-        hs.Add(txHists[txname])
+    hs.Add(sms8)
+    hs.Add(sms13)
+    hs.Add(allowed)
     
-    plane = TCanvas("c1", "c1",0,0,1000,600)
+    plane = TCanvas("c1", "c1",0,0,800,600)
     AuxPlot.Default(plane,"TCanvas")
     plane.cd()
-    plane.SetRightMargin(0.3)
+    plane.SetRightMargin(0.05)
+    plane.SetLeftMargin(0.13)
+    plane.SetTitle("8 TeV Results")
+    plane.SetLogy()
+    plane.SetLogx()
     
     gStyle.SetOptStat(0)
+    sms8.SetLineColor(kAzure-8)
+    sms8.SetFillColor(kAzure-8)
+    sms13.SetLineColor(kRed-3)
+    sms13.SetFillColor(kRed-3)
+    allowed.SetFillColor(kGray)
+    allowed.SetLineColor(kGray)
     
     hs.Draw()
     AuxPlot.Default(hs,'TH1')
     hs.GetXaxis().SetTitle(varnames[xprint])
-    hs.GetXaxis().SetLabelSize(0.04)
     hs.GetYaxis().SetTitle("Number of Points")
-    hs.GetYaxis().SetTitleOffset(0.75)
+    hs.GetYaxis().SetTitleOffset(0.98)
 
 
     #Legend
-    leg = TLegend(0.6322645,0.288225,0.987976,0.9543058)
+    xleg1, yleg1 = 0.13, 0.74
+    leg = TLegend(xleg1,yleg1,xleg1+0.35,yleg1+0.25)
     AuxPlot.Default(leg,'TLegend')
-    leg.SetMargin(0.2)
-    leg.SetTextSize(0.04)
-    for txname in txHists:        
-        prettyTx = prettyTxname(txname.replace('+',''))
-        if not prettyTx:
-            prettyTx = txname
-        leg.AddEntry(txHists[txname],prettyTx,"f")
+    leg.AddEntry(sms8,"Excluded (8 TeV)","f")
+    leg.AddEntry(sms13,"Excluded (13 TeV)","f")
+    leg.AddEntry(allowed,"Allowed","f")
     leg.Draw()
-    
-    #Title:
     
     gPad.RedrawAxis()
     gPad.Update()
     
     if DoPrint:
-        if not DoPrint[0] == '.':
+        if not '.' in DoPrint:
             DoPrint = '.'+DoPrint
-        label = 'excludedTx'
-
+        label = 'excludedHisto'
+        froot = os.path.basename(mainRoot)  
+        label += '_%s' %(froot[:froot.find('_')])
         plotname = "%s%s"%(label,DoPrint)
         filename = os.path.join(outputFolder,plotname)
         plane.Print(filename)

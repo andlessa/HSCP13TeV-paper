@@ -15,6 +15,52 @@ import imp
 remove_keys = ['0','sr','analysis','db','ds', 'obs', 'Mass (GeV)', 
                'expected upper limit (fb)', 'chi2', 'likelihood', 'dataType']
 
+TRDict = {}
+
+def buildTRDict(dataFile='April2018_TRg1E6_greenpoints.dat'):
+    """
+    Reads an input file with the reheat temperature information
+    for all files and returns a dictionary with the TR values for all files.
+    """
+    
+    f = open(dataFile,'r')
+    lines = f.readlines()
+    f.close()
+    if lines[0][0] == '#':
+        header = lines[0]
+    else:
+        print('Header not found in %s' %dataFile)
+    header = header[1:]
+    header = header.split()
+    ifile = header.index('counter')
+    iTR = header.index('TR')
+    
+    lines = lines[1:]
+    for l in lines:
+        data = l.split()
+        fname = data[ifile]
+        if not fname in TRDict:
+            TRDict[fname] = [eval(data[iTR])]
+        else:
+            TRDict[fname].append(eval(data[iTR]))
+
+
+
+def getTRmax(filename,dataFile='April2018_TRg1E6_greenpoints.dat'):
+    """
+    Reads an input file with the reheat temperature information
+    for all files and returns the maximum reheat temperature for the respective file.
+    """
+
+    if not TRDict:
+        buildTRDict(dataFile)
+
+    counter = filename.split('_')[0]
+    
+    return max(TRDict[counter]) 
+    
+            
+
 
 def getnulldataFrom(indata):
     
@@ -145,7 +191,7 @@ def main(dataFolders,rootFile,dictName,fileExtension,treename):
                 for key in exp.keys():
                     if key in remove_keys:
                         exp.pop(key)
-#                 exps[expType] = expextension
+                exps[expType] = exp
     
         filename = os.path.basename(data['OutputStatus']['input file'])
         decompStatus = float(data['OutputStatus']['decomposition status'])
@@ -170,6 +216,7 @@ def main(dataFolders,rootFile,dictName,fileExtension,treename):
                         best[bestDict][key+'_'+expType+sqrts] = exp[key]            
 
         savedata.update(best)
+        savedata.update({'TRmax': getTRmax(filename)})
 #     #If first call, generate empty data dictionary  (nulldata) 
         if not alldata:
             nulldata = {}
