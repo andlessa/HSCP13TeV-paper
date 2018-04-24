@@ -51,13 +51,14 @@ datasetNames = ['c000','c100','c200','c300']
 observedNs = [5,1,0,0] #Extracted from a fit of the data
 expectedBGs = [2.63,0.3377,0.0258,0.0045] #Extracted from a log fit of CMS BG
 bgErrors = [0.53,0.127,0.0036,0.001] #Estimated from the error between a log fit and a linear fit of the CMS BG
-#obsUpperLimits = ['1.15*fb','0.441*fb','0.16*fb','0.159*fb']
-#expUpperLimits = ['1.23*fb','0.338*fb','0.16*fb','0.159*fb']
+obsUpperLimits = ['0.625*fb','0.346*fb','0.232*fb','0.233*fb']
+expUpperLimits = ['0.36*fb','0.232*fb','0.233*fb','0.232*fb']
 for i,name in enumerate(datasetNames):
 #+++++++ dataset block ++++++++++++++
     dataset = DataSetInput(name)
     dataset.setInfo(dataType = 'efficiencyMap', dataId = name, 
-                    observedN=observedNs[i], expectedBG=expectedBGs[i], bgError=bgErrors[i])
+                    observedN=observedNs[i], expectedBG=expectedBGs[i], bgError=bgErrors[i],
+					upperLimit = obsUpperLimits[i], expectedUpperLimit = expUpperLimits[i])
 
     #+++++++ txnames ++++++++++++++++++++
     #+++++++ next txName block ++++++++++++++
@@ -76,7 +77,7 @@ for i,name in enumerate(datasetNames):
     #+++++++ next txName block ++++++++++++++
     HSCPM3 = dataset.addTxName('THSCPM3')
     HSCPM3.checked =''
-    HSCPM3.constraint = "[[['?']],[['?']]]"  ##Here '?' represents any (single) even particle
+    HSCPM3.constraint = "[[['*']],[['*']]]"  ##Here '*' represents any (single) even particle
     HSCPM3.condition =None
     HSCPM3.conditionDescription =None
     HSCPM3.finalState = ['HSCP','HSCP']
@@ -89,7 +90,7 @@ for i,name in enumerate(datasetNames):
     #+++++++ next txName block ++++++++++++++
     HSCPM5 = dataset.addTxName('THSCPM5')
     HSCPM5.checked =''
-    HSCPM5.constraint = "[[['?'],['?']],[['?'],['?']]]" ##Here '?' represents any (single) even particle
+    HSCPM5.constraint = "[[['*'],['*']],[['*'],['*']]]" ##Here '*' represents any (single) even particle
     HSCPM5.condition =None
     HSCPM5.conditionDescription =None
     HSCPM5.finalState = ['HSCP','HSCP']
@@ -102,7 +103,7 @@ for i,name in enumerate(datasetNames):
     #+++++++ next txName block ++++++++++++++
     HSCPM7 = dataset.addTxName('THSCPM7')
     HSCPM7.checked =''
-    HSCPM7.constraint = "[[['?']],[['?'],['?']]]" ##Here '?' represents any (single) even particle
+    HSCPM7.constraint = "[[['*']],[['*'],['*']]]" ##Here '*' represents any (single) even particle
     HSCPM7.condition =None
     HSCPM7.conditionDescription =None
     HSCPM7.finalState = ['HSCP','HSCP']
@@ -115,7 +116,7 @@ for i,name in enumerate(datasetNames):
     #+++++++ next txName block ++++++++++++++
     HSCPM8 = dataset.addTxName('THSCPM8')
     HSCPM8.checked =''
-    HSCPM8.constraint = "[[['?','?']],[['?','?']]]" ##Here '?','?' represents any pair of even particles
+    HSCPM8.constraint = "[[['*','*']],[['*','*']]]" ##Here '*','*' represents any pair of even particles
     HSCPM8.condition =None
     HSCPM8.conditionDescription =None
     HSCPM8.finalState = ['HSCP','HSCP']
@@ -141,7 +142,7 @@ for i,name in enumerate(datasetNames):
     #+++++++ next txName block ++++++++++++++
     HSCPM4 = dataset.addTxName('THSCPM4')
     HSCPM4.checked =''
-    HSCPM4.constraint = "[[*],[['?']]]" ##Here [*] represents one branch with any list of vertices
+    HSCPM4.constraint = "[[*],[['*']]]" ##Here [*] represents one branch with any list of vertices
     HSCPM4.condition =None
     HSCPM4.conditionDescription =None
     HSCPM4.finalState = ['MET','HSCP']
@@ -154,7 +155,7 @@ for i,name in enumerate(datasetNames):
     #+++++++ next txName block ++++++++++++++
     HSCPM6 = dataset.addTxName('THSCPM6')
     HSCPM6.checked =''
-    HSCPM6.constraint = "[[*],[['?'],[ '?']]]" ##Here [*] represents one branch with any list of vertices
+    HSCPM6.constraint = "[[*],[['*'],[ '*']]]" ##Here [*] represents one branch with any list of vertices and '*' any single particle
     HSCPM6.condition =None
     HSCPM6.conditionDescription =None
     HSCPM6.finalState = ['MET','HSCP']
