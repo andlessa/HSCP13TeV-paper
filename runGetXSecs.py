@@ -9,7 +9,7 @@
 # and generate a SLHA file containing the cross-sections
 
 #First tell the system where to find the modules:
-import sys,os
+import sys,os,glob
 from configParserWrapper import ConfigParserExt
 import logging,shutil
 import subprocess
@@ -317,8 +317,7 @@ if __name__ == "__main__":
         sys.exit()
     logger.setLevel(level = levels[level])    
 
-    parser = ConfigParserExt( inline_comment_prefixes=( ';', ) )
-    ret = parser.read('eff_parameters_default.ini')   
+    parser = ConfigParserExt( inline_comment_prefixes=( ';', ) )   
     ret = parser.read(args.parfile)
     if ret == []:
         logger.error( "No such file or directory: '%s'" % args.parfile)
