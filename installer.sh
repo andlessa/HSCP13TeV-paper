@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 homeDIR="$( pwd )"
 
@@ -7,9 +7,8 @@ sphenoDir=$homeDIR/"SPheno"
 madDir=$homeDIR/"MadGraph"
 
 echo "Install SPheno? (y/n)"
-read ins
-if [ "$ins" == "y" ]; then
-    #Get SPheno tarball
+read answer
+if echo "$answer" | grep -iq "^y" ;then    #Get SPheno tarball
     spheno="SPheno-4.0.3.tar.gz"
     URL=http://www.hepforge.org/archive/spheno/$spheno
     mkdir $sphenoDir
@@ -19,18 +18,18 @@ if [ "$ins" == "y" ]; then
     rm $spheno;
 fi
 
-echo "Install MadGraph? (y/n)"
-read ins
-if [ "$ins" == "y" ]; then
-    #Get MadGraph
-    mad="MG5_aMC_v2.6.0.tar.gz"
-    URL=https://launchpad.net/mg5amcnlo/2.0/2.6.x/+download/$mad
-    mkdir $madDir
-    echo "[installer] getting MadGraph"; wget $URL 2>/dev/null || curl -O $URL; tar -zxf $mad -C $madDir --strip-components=1;
-    mkdir $madDir/models/$MODEL
-    cp $homeDIR/mg5_configuration.txt $madDir/input/
-    cd $homeDIR;
-    rm $mad;
+madgraph="MG5_aMC_v2.6.1.tar.gz"
+URL=https://launchpad.net/mg5amcnlo/2.0/2.6.x/+download/$madgraph
+echo -n "Install MadGraph (y/n)? "
+read answer
+if echo "$answer" | grep -iq "^y" ;then
+	mkdir MG5;
+	echo "[installer] getting MadGraph5"; wget $URL 2>/dev/null || curl -O $URL; tar -zxf $madgraph -C MG5 --strip-components 1;
+	cd $homeDIR
+	rm $madgraph;
+	echo "[installer] replacing MadGraph files with fixes";
+    cp ./madgraphFixes/mg5_configuration.txt MG5/input/;
+    cp ./madgraphFixes/madgraph_interface.py MG5/madgraph/interface/;
 fi
 
 

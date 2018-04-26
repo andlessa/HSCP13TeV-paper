@@ -1,0 +1,93 @@
+# This file was automatically created by FeynRules 2.3.2
+# Mathematica version: 8.0 for Linux x86 (64-bit) (February 23, 2011)
+# Date: Sun 7 Aug 2016 10:05:25
+
+
+# 
+# This is the logfile for the model InertDoublet
+
+# Authors: Andreas Goudelis, Bjoern Herrmann, Oscal Stal
+# Model version: 1.0
+# Checking the Quantum numbers
+   * Electric charge defined.
+# Checking the Lagrangians
+   * All Lagrangians are ok.
+#
+# Particle definitions
+#
+
+   * No particles removed. All particles correspond to GenInt setup.
+
+# Automatically assigned PDG numbers
+   * Assigned PDG number 9000001 to particle ghA
+   * Assigned PDG number 9000002 to particle ghZ
+   * Assigned PDG number 9000003 to particle ghWp
+   * Assigned PDG number 9000004 to particle ghWm
+   * Assigned PDG number 9000005 to particle ghG
+
+
+# Compulsory PDG codes:
+   * Class SM leptons complete.
+   * Class SM neutrinos complete.
+   * Class SM quarks complete.
+   * Class SM gauge bosons complete.
+#
+# Parameter definitions
+#
+
+   * Parameter Lambdaglu has no value. Default value 1 assigned.
+   * Parameter Lambdagam has no value. Default value 1 assigned.
+
+
+# Vertices
+   * Calling FeynmanRules for 1 Lagrangians.
+   * Number of classes vertices: 70
+   * Number of flavored vertices: 114
+   * Saved vertices in InterfaceRun[ 1 ].
+   * Checked QNumber conservation.
+      - Quantum number GhostNumber conserved in all vertices.
+      - Quantum number LeptonNumber conserved in all vertices.
+      - Quantum number Q conserved in all vertices.
+      - Quantum number Y conserved in all vertices.
+   * particles.py written.
+   * parameters.py written.
+#
+# Vertex definitions
+#
+
+   * 114 vertices written.
+   * vertices.py written.
+#
+# Lorentz structure definitions
+#
+
+   * 23 lorentz structures written.
+   * lorentz.py written.
+#
+# Coupling definitions
+#
+
+   >>>> Non positive interaction order HIG found for coupling GC_20.
+   >>>> Non positive interaction order HIG found for coupling GC_21.
+   >>>> Non positive interaction order HIG found for coupling GC_22.
+   >>>> Non positive interaction order HIG found for coupling GC_23.
+   * 78 couplings written.
+   * couplings.py written.
+#
+# Coupling order definitions
+#
+
+   * 0 couplings orders written.
+   * coupling_orders.py written.
+#
+# Decay definitions
+#
+
+   * 15 decays written.
+   * decay.py not written
+#
+# CTCoupling definitions
+#
+
+   * 0 CTcouplings written.
+   * CT_couplings.py written.
