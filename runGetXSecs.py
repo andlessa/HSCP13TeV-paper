@@ -326,24 +326,17 @@ if __name__ == "__main__":
     
     loopVars = []
     varValues = []
-    for var,val in parser.items("MadGraphSet",raw=True):
-        try:
-            v = eval(val)
-        except:
-            v = val
-        if not isinstance(v,list):
-            v = [v]
-        loopVars.append(var)
-        varValues.append(v)
-    for var,val in parser.items("MadGraphPars",raw=True):
-        try:
-            v = eval(val)
-        except:
-            v = val
-        if not isinstance(v,list):
-            v = [v]
-        loopVars.append(var)
-        varValues.append(v)        
+    for section in parser.sections():
+        for option in parser.options(section):
+            val = parser.get(section,option,raw=True)
+            try:
+                v = eval(val)
+            except:
+                v = val
+            if not isinstance(v,list):
+                v = [v]
+            loopVars.append(option)
+            varValues.append(v)
 
     ncpus = parser.getint("options","ncpu")
     if ncpus  < 0:
@@ -356,9 +349,11 @@ if __name__ == "__main__":
         newParser = ConfigParserExt()
         newParser.read_dict(parser.toDict())
         for i,v in enumerate(values):        
-            newParser.set("MadGraphSet",loopVars[i],str(v))
+            for section in newParser.sections():
+                if loopVars[i] in newParser.options(section):        
+                    newParser.set(section,loopVars[i],str(v))
         parserDict = newParser.toDict(raw=False) #Must convert to dictionary for pickling
-        p = pool.apply_async(runAll, args=(parserDict,))        
+        p = pool.apply_async(runAll, args=(parserDict,))            
         children.append(p)
         if len(children) == 1:
             time.sleep(15)  #Let first job run for 15s in case it needs to create shared folders
