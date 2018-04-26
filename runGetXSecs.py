@@ -358,11 +358,10 @@ if __name__ == "__main__":
         for i,v in enumerate(values):        
             newParser.set("MadGraphSet",loopVars[i],str(v))
         parserDict = newParser.toDict(raw=False) #Must convert to dictionary for pickling
-        runAll(parserDict)
-#         p = pool.apply_async(runAll, args=(parserDict,))        
-#         children.append(p)
-#         if len(children) == 1:
-#             time.sleep(15)  #Let first job run for 15s in case it needs to create shared folders
+        p = pool.apply_async(runAll, args=(parserDict,))        
+        children.append(p)
+        if len(children) == 1:
+            time.sleep(15)  #Let first job run for 15s in case it needs to create shared folders
       
     #Wait for jobs to finish:
     output = [p.get() for p in children]
