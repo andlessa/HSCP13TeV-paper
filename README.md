@@ -15,14 +15,47 @@ Furthermore the following codes may be useful:
 The script installer.sh will try to fetch the appropriate tarballs and try to install them.
 
 
-## Running ##
+## Running SModelS ##
 
-Not for now
+SModelS can run as usual with the input SLHA files. However the corresponding
+particles.py file ([particles-IDM](particles-IDM.py) or [particles-SUSY](particles-SUSY.py))
+must be used for the respective input model.
+
+### Computing Cross-Sections ###
+
+The cross-sections for the MSSM scenario can be computed as usual with smodelsTools.py.
+However, for the IDM model MadGraph5 must be used. Running:
+
+``
+./runGetXSecs.py -p <parameter file>
+`` 
+
+will use the parameters defined in the parameter file (see example in [xsec_parameters.ini](xsec_parameters.ini))
+and run MG5 to compute the cross-sections (using the processes defined in [proc_card-IDM.dat](inputCards/proc_card-IDM.dat)).
+The results will be used to generate a SLHA file with cross-sections, which can then be used as input to SModelS.
 
 ## Plotting ##
 
-Not for now
+For plotting 1D histograms of excluded and allowed points:
 
+``
+./plots/plotExcHist.py
+``
+
+For plotting the contributions from each SMS topology:
+
+``
+./plots/plotTxnameHist.py
+``
+
+The input files should be ROOT files, which can be generated running [data/dataToROOT.py](data/dataToROOT.py)
+and [data/slhaToROOT.py](data/slhaToROOT.py) for the SModelS output files and SLHA files.
+Note that distinct options should be used for the MSSM and IDM models.
+
+## Data ##
+
+The data (SLHA files and SModelS output) is stored in the [data/](data/) folder
+as tarballs.
 
 ## Updating SModelS ##
 
