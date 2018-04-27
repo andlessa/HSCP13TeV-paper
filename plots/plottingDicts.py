@@ -82,7 +82,13 @@ Var_dic = {'So4_mass': "m_{#tilde{#chi}^{0}_{4}} (GeV)", 'pSI': "#sigma(p,SI) (p
            'C1_W' : "#Gamma_{#tilde{#chi}_{1}^{#pm}} (GeV)",
            'gl_W' : "#Gamma_{#tilde{g}} (GeV)", 'T1_W' : "#Gamma_{#tilde{t}_{1}} (GeV)",
            'C1_ct' : "c #tau_{#tilde{#chi}_{1}^{#pm}} (m)",
-           'Hp_mass' : "m_{H^{+}} (GeV)", 'H0_mass' : "m_{H^{0}} (GeV)", 'A0_mass' : "m_{A^{0}} (GeV)"}
+           'Hp_mass' : "m_{H^{+}} (GeV)", 'H0_mass' : "m_{H^{0}} (GeV)", 'A0_mass' : "m_{A^{0}} (GeV)",
+           'TRmax' : 'T_{RH}^{max} (GeV)',
+           'lTRmax' : 'log_{10}(T_{RH}^{max}/GeV)',
+           'Hp_W' : "#Gamma_{H^{#pm}} (GeV)",
+           'Hp_ct' : "c #tau_{H^{#pm}} (m)",
+           'mHp-mH0' : 'm_{H^{#pm}} - m_{H^{0}} (GeV)',
+           'lmHp-mH0' : 'log_{10}((m_{H^{#pm}} - m_{H^{0}})/GeV)'}
 
 
 
@@ -106,7 +112,11 @@ Exp_dic = {"Smu1_mass" : "min(TREENAME.SmL_mass,TREENAME.SmR_mass)",
            "Sb2_mass" : "TREENAME.Mb2",
            "XsecTot" : "(TREENAME.Tested + TREENAME.No_Limit + TREENAME.No_Analysis + TREENAME.Bad_Conditions + TREENAME.Long_Topology + TREENAME.Asymmetric_Top)",
            'C1N2_xsec' : "TREENAME.C1mN2_xsec + TREENAME.C1pN2_xsec",
-           'C1_ct' : "(6.582e-25)*(2.99e+08)/(TREENAME.C1_W)"}
+           'C1_ct' : "(6.582e-25)*(2.99e+08)/(TREENAME.C1_W)",
+           'Hp_ct' : "(6.582e-25)*(2.99e+08)/(TREENAME.Hp_W)",
+           'lTRmax' : "log10(TREENAME.TRmax)",
+           'mHp-mH0' :"TREENAME.Hp_mass-TREENAME.H0_mass",
+           'lmHp-mH0' :"log10(TREENAME.Hp_mass-TREENAME.H0_mass)"}
 
 
 #Txnames and the corresponding SUSY process 

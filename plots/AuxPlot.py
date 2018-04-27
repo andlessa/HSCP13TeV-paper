@@ -3,6 +3,7 @@ import os,sys,copy
 from ROOT import TTree,TColor,TCanvas,TF1,TGraph,Double,TFile,gDirectory,TNamed,gROOT
 from plottingDicts import Var_dic,Exp_dic,EXTPAR_dic,Observables_dic,MINPAR_dic,MassPDG_dic
 from array import array
+from math import sqrt,log,log10
 
 def infiles(fileList):
     filename = fileList[0]

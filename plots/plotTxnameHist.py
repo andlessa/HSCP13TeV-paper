@@ -2,7 +2,6 @@
 
 
 
-import os
 import argparse
 from collections import OrderedDict
 from prettyDescriptions import prettyTxname
