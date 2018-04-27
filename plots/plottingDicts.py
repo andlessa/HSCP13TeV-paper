@@ -81,7 +81,8 @@ Var_dic = {'So4_mass': "m_{#tilde{#chi}^{0}_{4}} (GeV)", 'pSI': "#sigma(p,SI) (p
            'C1N2_xsec' : "#sigma(#tilde{#chi}_{1}^{#pm} #tilde{#chi}_{2}^{0}) (fb)",
            'C1_W' : "#Gamma_{#tilde{#chi}_{1}^{#pm}} (GeV)",
            'gl_W' : "#Gamma_{#tilde{g}} (GeV)", 'T1_W' : "#Gamma_{#tilde{t}_{1}} (GeV)",
-           'C1_ct' : "c #tau_{#tilde{#chi}_{1}^{#pm}} (m)"}
+           'C1_ct' : "c #tau_{#tilde{#chi}_{1}^{#pm}} (m)",
+           'Hp_mass' : "m_{H^{+}} (GeV)", 'H0_mass' : "m_{H^{0}} (GeV)", 'A0_mass' : "m_{A^{0}} (GeV)"}
 
 
 

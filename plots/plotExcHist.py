@@ -6,12 +6,10 @@ import os
 import argparse
 
 
-xmin = 500.
-xmax = 5000.
-  
+ 
 
 
-def main(mainRoot,friends,xprint,DoPrint,outputFolder,nbins):
+def main(mainRoot,friends,xprint,DoPrint,outputFolder,nbins,xmin,xmax):
 
     import AuxPlot
     from ROOT import kAzure,kRed,kGreen,kGray,kMagenta,kOrange,kBlack,TGraph,gDirectory,gStyle,TFile,TCanvas,TH1F,TLegend,gPad,THStack,TLatex
@@ -59,10 +57,12 @@ def main(mainRoot,friends,xprint,DoPrint,outputFolder,nbins):
    
     print "8 TeV:", sms8.GetEntries()
     print "13 TeV:",sms13.GetEntries()
-    print "total excluded:",sms8.GetEntries()+sms13.GetEntries()    
-    print "allowed:",allowed.GetEntries()
+    nexcluded = sms8.GetEntries()+sms13.GetEntries()
+    nallowed = allowed.GetEntries()
+    
+    print "total excluded:",nexcluded    
+    print "allowed:",nallowed
     print "total:",allHisto.GetEntries()
-
 
     xtotal = allHisto.GetEntries()
     xexcluded = sms8.GetEntries()+sms13.GetEntries()    
@@ -104,18 +104,17 @@ def main(mainRoot,friends,xprint,DoPrint,outputFolder,nbins):
     leg.AddEntry(allowed,"Allowed","f")
     leg.Draw()
     
+    tit = TLatex()
+    tit.SetTextSize(0.045)
+    tit.SetTextFont(12)
+    tit.DrawLatexNDC(0.15,0.45,"#splitline{Excluded points = %i}{Allowed points = %i}" %(nexcluded,nallowed))
+    
+    
     gPad.RedrawAxis()
     gPad.Update()
     
     if DoPrint:
-        if not '.' in DoPrint:
-            DoPrint = '.'+DoPrint
-        label = 'excludedHisto'
-        froot = os.path.basename(mainRoot)  
-        label += '_%s' %(froot[:froot.find('_')])
-        plotname = "%s%s"%(label,DoPrint)
-        filename = os.path.join(outputFolder,plotname)
-        plane.Print(filename)
+        plane.Print(DoPrint)
     
     raw_input("Hit any key to close\n")
 
@@ -132,11 +131,15 @@ if __name__ == "__main__":
     ap.add_argument('-x', '--xprint', 
             help='Name of the variable to be printed in the x-axis', type = str, default = 'SGl_mass')
     ap.add_argument('-P', '--Print', 
-            help='If set will print the plot to a file with the corresponding extension', type = str, default = None)
+            help='Name of the output file to save the plot', type = str, default = None)
     ap.add_argument('-o', '--output', 
             help='Name of output folder to save plots', type = str, default = './')
     ap.add_argument('-n', '--nbins', 
             help='Number of bins to show', type = int, default = 20)
+    ap.add_argument('-m', '--xmin', 
+            help='Minimum value for x', type = float, default = 100.)
+    ap.add_argument('-M', '--xmax', 
+            help='Maximum value for x', type = float, default = 5000.)
 
     
     args = ap.parse_args()
@@ -145,6 +148,6 @@ if __name__ == "__main__":
     if args.friends:
         args.friends = args.friends[0]
     
-    main(args.mainRootFile,args.friends,args.xprint,args.Print,args.output,args.nbins)
+    main(args.mainRootFile,args.friends,args.xprint,args.Print,args.output,args.nbins,args.xmin,args.xmax)
     
     

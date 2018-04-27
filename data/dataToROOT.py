@@ -57,6 +57,9 @@ def getTRmax(filename,dataFile='April2018_TRg1E6_greenpoints.dat'):
 
     counter = filename.split('_')[0]
     
+    if not counter in TRDict:
+        return -1.
+    
     return max(TRDict[counter]) 
     
             
