@@ -9,7 +9,7 @@ It is based on the 13 TeV CMS search for long-lived particles [CMS-PAS-EXO-16-03
 The HSCP SModelS branch and the HSCP SModelS Database branch are already included as subtrees.
 Furthermore the following codes may be useful:
 
-  * [SPheno](https://spheno.hepforge.org/)
+  * [SPheno](https://spheno.hepforge.org/) (optional)
   * [MadGraph](https://sarah.hepforge.org/)
 
 The script installer.sh will try to fetch the appropriate tarballs and try to install them.
