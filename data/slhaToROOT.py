@@ -8,7 +8,7 @@ import pyslha
 
 #Widths to compute (always use positive PDGs)
 getWidths = {'gl_W': 1000021, 'C1_W' : 1000024, 'T1_W' : 1000006}
-getWidths = {'H0_W' : 35, 'A0_W' : 36, 'Hp_W' : 37}
+#getWidths = {'H0_W' : 35, 'A0_W' : 36, 'Hp_W' : 37}
 
 #BRs to compute (always use positive PDGs, charges are always summed over)
 getBRs = {
@@ -41,10 +41,10 @@ getBRs = {
 'B1_C1t' : {1000005 : [[1000024,6]]}
 }
 
-getBRs = {
-'Hp_H0ff' : {37 : [[35,1,2], [35,11,12], [35,13,14], [35,3,2]]},
-'Hp_H0W' : {37 : [[35,24]]}
-}    
+#getBRs = {
+#'Hp_H0ff' : {37 : [[35,1,2], [35,11,12], [35,13,14], [35,3,2]]},
+#'Hp_H0W' : {37 : [[35,24]]}
+#}    
 
 #Masses to print
 printMasses = {
@@ -83,24 +83,24 @@ printMasses = {
  'SmuL_mass': 1000013,
  'Sntau_mass': 1000016}
 
-printMasses = {
-  'H0_mass' : 35,
-  'Hp_mass' : 37,
-  'A0_mass' : 36    
-}
+#printMasses = {
+#  'H0_mass' : 35,
+#  'Hp_mass' : 37,
+#  'A0_mass' : 36    
+#}
 
 #Xsecs to print:
 printXSecs = {'C1pN2_fb' : ['8 TeV',(1000023,1000024)],'C1mN2_fb' : ['8 TeV',(-1000024,1000023)],
               'T1T1_fb' : ['8 TeV',(-1000006,1000006)],'B1B1_fb' : ['8 TeV',(-1000005,1000005)],
               'glgl_fb' : ['8 TeV',(1000021,1000021)], 'totalxsec_fb' : ['8 TeV','all']}
 
-printXSecs = {'HpHm_fb' : ['8 TeV',(-37,37)], 'totalxsec13_fb' : ['13 TeV','all'],'totalxsec8_fb' : ['8 TeV','all']}
+#printXSecs = {'HpHm_fb' : ['8 TeV',(-37,37)], 'totalxsec13_fb' : ['13 TeV','all'],'totalxsec8_fb' : ['8 TeV','all']}
 
 #K-factors to print
 printKfactors = {'k_glgl' : ['8 TeV',(1000021,1000021)], 
                  'k_sdsd' : ['8 TeV',(1000001,1000001)],
                  'k_sdgl' : ['8 TeV',(1000001,1000021)], 'k_max' : ['8 TeV','all']}
-printKfactors = {}
+#printKfactors = {}
 
 def getFilesFrom(select):
     """

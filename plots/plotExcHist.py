@@ -48,10 +48,6 @@ def main(mainRoot,friends,xprint,DoPrint,outputFolder,nbins,xmin,xmax):
         allHisto.Fill(xval)    
         if max([robsUL8,robsEM8,robsUL13,robsEM13]) < 1.:
             allowed.Fill(xval)
-            
-            if xval > 1.5 and AuxPlot.GetValue(tree,'Hp_mass') < 500.:
-                print( AuxPlot.GetValue(tree,'Hp_mass'), AuxPlot.GetValue(tree,'filename'))
-                        
             continue
 
         if max([robsUL8,robsEM8]) > 1.:

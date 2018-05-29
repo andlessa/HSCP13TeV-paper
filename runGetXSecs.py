@@ -24,7 +24,7 @@ logging.basicConfig(format=FORMAT,datefmt='%m/%d/%Y %I:%M:%S %p')
 logger = logging.getLogger(__name__)
 
     
-
+@profile
 def Run_MG5(parser):
     """
     Runs MadGraph5 using the parameters given in parser
@@ -254,7 +254,7 @@ def CreateSLHAFileFrom(inputFile,parser):
     
     return True
 
-
+@profile
 def runAll(parserDict):
     """
     Runs Madgraph, Pythia and the SLHA creator for a given set of options.
