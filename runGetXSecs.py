@@ -24,7 +24,7 @@ logging.basicConfig(format=FORMAT,datefmt='%m/%d/%Y %I:%M:%S %p')
 logger = logging.getLogger(__name__)
 
     
-@profile
+
 def Run_MG5(parser):
     """
     Runs MadGraph5 using the parameters given in parser
@@ -61,6 +61,8 @@ def Run_MG5(parser):
     #Create temp file:
     processCard = tempfile.mkstemp(suffix='.dat', prefix='processCard_', 
                                    dir=pars['MG5path'])
+    os.close(processCard[0])
+    processCardF = open(processCard[1],'w')
      
     #Get process card:      
     if not os.path.isfile(pars['proccard']):
@@ -73,14 +75,14 @@ def Run_MG5(parser):
                 continue
             if ('import model' in l) and not ('import model sm' in l):
                 l = 'import model %s\n' %pars['model']
-            os.write(processCard[0],l)
+            processCardF.write(l)
              
         l = 'output %s\n' %processDir
-        os.write(processCard[0],l)
-        os.write(processCard[0],'y\n')
-        os.write(processCard[0],'quit\n')
+        processCardF.write(l)
+        processCardF.write('y\n')
+        processCardF.write('quit\n')
         pFile.close()
-        os.close(processCard[0])
+        processCardF.close()
         processCard = processCard[1]
  
     #Checks        
@@ -114,15 +116,17 @@ def Run_MG5(parser):
     shutil.copyfile(pars['paramcard'],os.path.join(processDir,'Cards/param_card.dat'))
     #Generate commands file:       
     commandsFile = tempfile.mkstemp(suffix='.txt', prefix='MG5_commands_', dir=processDir)
+    os.close(commandsFile[0])
+    commandsFileF = open(commandsFile[1],'w')
     comms = parser.toDict(raw=False)["MadGraphOptions"]
     for key,val in comms.items():
-        os.write(commandsFile[0],'%s=%s\n' %(key,val))
-    os.write(commandsFile[0],'done\n')
+        commandsFileF.write('%s=%s\n' %(key,val))
+    commandsFileF.write('done\n')
     comms = parser.toDict(raw=False)["MadGraphSet"]
     for key,val in comms.items():
-        os.write(commandsFile[0],'set %s %s\n' %(key,val))        
-    os.write(commandsFile[0],'done\n')
-    os.close(commandsFile[0])
+        commandsFileF.write('set %s %s\n' %(key,val))        
+    commandsFileF.write('done\n')
+    commandsFileF.close()
     commandsFile = commandsFile[1] 
      
     
@@ -254,7 +258,7 @@ def CreateSLHAFileFrom(inputFile,parser):
     
     return True
 
-@profile
+
 def runAll(parserDict):
     """
     Runs Madgraph, Pythia and the SLHA creator for a given set of options.
@@ -357,8 +361,8 @@ if __name__ == "__main__":
         children.append(p)
         if len(children) == 1:
             time.sleep(15)  #Let first job run for 15s in case it needs to create shared folders
-      
-    #Wait for jobs to finish:
+       
+#     Wait for jobs to finish:
     output = [p.get() for p in children]
     for out in output:
         print(out)
