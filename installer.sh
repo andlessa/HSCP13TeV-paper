@@ -18,7 +18,7 @@ if echo "$answer" | grep -iq "^y" ;then    #Get SPheno tarball
     rm $spheno;
 fi
 
-madgraph="MG5_aMC_v2.6.1.tar.gz"
+madgraph="MG5_aMC_v2.6.2.tar.gz"
 URL=https://launchpad.net/mg5amcnlo/2.0/2.6.x/+download/$madgraph
 echo -n "Install MadGraph (y/n)? "
 read answer

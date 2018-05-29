@@ -3,3 +3,7 @@ data/slha_files_postref_full_recomp_TRg1E6_green_suspect241_sdec3b.zip filter=lf
 data/slha_files_postref_full_recomp_TRg1E6_green_suspect243_sdec3b.zip filter=lfs diff=lfs merge=lfs -text
 data/smodelsOutput_TRg1E6.tar.gz filter=lfs diff=lfs merge=lfs -text
 data/slha_files_IDM.tar.gz filter=lfs diff=lfs merge=lfs -text
+data/IDM/slha_files_IDM.tar.gz filter=lfs diff=lfs merge=lfs -text
+data/IDM/smodelsOutput_IDM.tar.gz filter=lfs diff=lfs merge=lfs -text
+data/gravitino_stau/slha_files_TRg1E6.tar.gz filter=lfs diff=lfs merge=lfs -text
+data/gravitino_stau/smodelsOutput_TRg1E6.tar.gz filter=lfs diff=lfs merge=lfs -text
