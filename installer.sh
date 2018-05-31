@@ -32,5 +32,20 @@ if echo "$answer" | grep -iq "^y" ;then
     cp ./madgraphFixes/madgraph_interface.py MG5/madgraph/interface/;
 fi
 
+spheno="SPheno-4.0.3.tar.gz"
+URL=http://www.hepforge.org/archive/spheno/$spheno
+echo -n "Install SPheno (y/n)? "
+read answer
+if echo "$answer" | grep -iq "^y" ;then
+	mkdir SPheno;
+	echo "[installer] getting SPheno"; wget $URL 2>/dev/null || curl -O $URL; tar -zxf $spheno -C SPheno --strip-components 1;
+	echo "[installer] installing SPheno";
+    cd SPheno;
+    sed -i '/.*F90 =/s/.*/F90 = gfortran/' Makefile;
+    make;
+	cd $homeDIR;
+	rm $spheno;
+fi
+
 
 echo "DONE"
