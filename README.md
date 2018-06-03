@@ -34,6 +34,19 @@ will use the parameters defined in the parameter file (see example in [xsec_para
 and run MG5 to compute the cross-sections (using the processes defined in [proc_card-IDM.dat](inputCards/proc_card-IDM.dat)).
 The results will be used to generate a SLHA file with cross-sections, which can then be used as input to SModelS.
 
+
+### Generating MSSM SLHA files ###
+
+In order to scan the MSSM parameter space, SPheno must be installed.
+The file [runRandomScan.py](runRandomScan.py) illustrates how to run a random
+scan over the desired MSSM parameters within specified ranges.
+
+
+For optimizing some observable using a simple MCMC scan, see the example file
+[runMCMCWalk.py](runMCMCWalk.py)
+
+These files also illustrate how to make simple plots of the scans.
+
 ## Plotting ##
 
 For plotting 1D histograms of excluded and allowed points:
