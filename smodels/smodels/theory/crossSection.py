@@ -571,11 +571,12 @@ def getXsecFromSLHAFile(slhafile, useXSecs=None, xsecUnit = pb):
     xSecsInFile = XSectionList()
     f=pyslha.readSLHAFile ( slhafile )
     for production in f.xsections:
-        for pid in production[2:]:
-            if not pid in smodels.particles.rOdd.keys():
-                # ignore production of R-Even Particles
-                logger.warning("Particle %i not defined in particles.py, cross section for %s production will be ignored" %(pid,str(production)))                 
-                break
+        rEvenParticles = list(set(production[2:]).difference(set(smodels.particles.rOdd.keys())))
+        if rEvenParticles:
+            # ignore production of R-Even Particles
+            logger.warning("Particles %s not defined as R-odd in particles.py, cross section for %s production will be ignored" 
+                           %(rEvenParticles,str(production)))                 
+            continue
         process = f.xsections.get ( production )
         for pxsec in process.xsecs:
             csOrder = pxsec.qcd_order
