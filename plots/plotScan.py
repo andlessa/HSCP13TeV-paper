@@ -10,6 +10,7 @@ import itertools
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
+import matplotlib as mpl
 
 
 def plotScan(points,axes,coloraxis=None,doLog=True,doLines=False):
@@ -34,7 +35,8 @@ def plotScan(points,axes,coloraxis=None,doLog=True,doLines=False):
     nplots = (len(axes)*(len(axes)-1))/2
     nrows = int(np.floor(nplots**0.5).astype(int))
     ncolumns = int(np.ceil(1.*nplots/nrows).astype(int))
-    fig = plt.figure(figsize=(3.*ncolumns,3.*nrows))
+#     fig = plt.figure(figsize=(4.*ncolumns,3.*nrows))
+    fig = plt.figure()
     cm = plt.cm.get_cmap('RdYlBu')
     iplot = 1
     if coloraxis:
@@ -74,7 +76,7 @@ if __name__ == "__main__":
     
     import sys
     sys.path.append('../')
-    from scanHelpers import getPoints
+    from scanHelpers import getSLHAPoints
     import argparse    
     ap = argparse.ArgumentParser( description=
             "Reads points from a slhaFolder and makes a 2D scatter plot with the results" )
@@ -85,18 +87,28 @@ if __name__ == "__main__":
 
     args = ap.parse_args()
     
+
+    
     #Define the variables to be read here:
     parsExpr = ["blocks['EXTPAR'][23]","blocks['EXTPAR'][1]",
                 "blocks['EXTPAR'][2]","abs(blocks['MASS'][1000024]) - abs(blocks['MASS'][1000022])",
                 "abs(blocks['MASS'][1000024])",
                 "decays[1000024].totalwidth"]
     slhaFolder = args.slhafolder
-    points,slhaFiles = getPoints(parsExpr,slhaFolder,100)
+    points,slhaFiles = getSLHAPoints(parsExpr,slhaFolder,100)
     
     #Define the axes labels and their index in points (for plotting)
     pars = {r'$\mu$ (GeV)' : 0 , r'$M_2$ (GeV)' : 2, r'$\Delta M$ (GeV)' : 3, r'$m_{\tilde{\chi}^\pm_1}$ (GeV)' : 4}
     coloraxis = {'Width' : -1}
     subset = points[points[:,-1]>0.]
+    
+    #Define global plot settings:
+    params = {'xtick.labelsize' : 15,
+            'ytick.labelsize' : 15, 
+            'axes.labelsize' : 20, 
+            'figure.figsize' : (15,10)}
+    mpl.rcParams.update(params)    
+    
     fig = plotScan(subset,pars,coloraxis,doLog=True,doLines=False)    
     if args.outfile:
         plt.savefig(args.outfile,bbox_inches='tight')

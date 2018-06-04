@@ -11,6 +11,7 @@ import logging as logger
 import tempfile
 import numpy as np
 from tempfile import mkstemp
+import imp
 
 sphenoPath = os.path.abspath('./SPheno/bin/SPheno')
 
@@ -50,7 +51,7 @@ def x2pars(x,parsDict):
     return parsDict    
 
 
-def getPoints(parsExpr,slhaFolder,nmax=-1):
+def getSLHAPoints(parsExpr,slhaFolder,nmax=-1):
     """
     Reads all SLHA files in the slhaFolder and returns list of points
     with the values for the parameters defined in pars.
@@ -74,6 +75,34 @@ def getPoints(parsExpr,slhaFolder,nmax=-1):
         points.append(x)
         slhaFiles.append(os.path.basename(slhafile))
     return np.array(points),np.array(slhaFiles)
+
+def getSModelSPoints(parsExpr,smodelsFolder,nmax=-1):
+    """
+    Reads all SModelS files in the smodelsFolder and returns list of points
+    with the values for the parameters defined in pars.
+    
+    :param parsExpr: list of string expressions for computing the desired parameters
+                      (e.g. ["max([x['theory prediction (fb)']/x['upper limit (fb)'] for x in ExptRes])",
+                             "sorted(ExptRes, key = lambda x: x['theory prediction (fb)']/x['upper limit (fb)'])[-1]"] )
+    :param smodelsFolder: Path to the folder containing sdmodels (.py) files    
+    :param nmax: Option to set the maximum number of points. If nmax > 0, only the first nmax points will be read.    
+    
+    :return: 2-D array with each point, its corresponding y-value and a 1-D array with the corresponding file names
+    
+    """
+    
+    points = []
+    smodelsFiles = []
+    for smodelsfile in glob.glob(smodelsFolder+'/*.py'):
+        if nmax > 0 and len(points) > nmax:
+            break
+        mod = imp.load_source(os.path.basename(smodelsfile).replace('.py',''),smodelsfile)        
+        smodelsDict = getattr(mod,'smodelsOutput')
+        x = np.array([eval(expr,smodelsDict) for expr in parsExpr])
+        points.append(x)
+        smodelsFiles.append(os.path.basename(smodelsfile))
+    return np.array(points),np.array(smodelsFiles)
+
 
 
 def writeSummary(points,header,outfile,slhaFiles=None):

@@ -167,28 +167,3 @@ def walk(yExpr,pars0,npts=100,ntries=100,fakeEff=0.05,sigmaStep=50.,
     return np.array(chain)
 
 
-def plotChain(chain,pars,doLog=True,doLines=True):
-    
-    ndim = len(pars)
-    plt.figure(figsize=(15,15))
-    nplot = 401+10*ndim
-    if doLog:
-        Y = np.log10(chain[:,-1])
-    else:
-        Y = chain[:,-1]
-    cm = plt.cm.get_cmap('RdYlBu')
-    for var1,var2 in itertools.product(pars,pars):
-        ix = pars.index(var1)
-        iy = pars.index(var2)
-        if ix >= iy:
-            continue
-        plt.subplot(nplot)                    
-        plt.scatter(chain[:,ix],chain[:,iy],c=Y,s=50,vmin=min(Y),vmax=max(Y),cmap=cm)
-        if doLines:
-            plt.plot(chain[:,ix],chain[:,iy],'--')
-        plt.colorbar()
-        plt.xlabel(var1)
-        plt.ylabel(var2)
-        nplot += 1  
-    
-    plt.show()

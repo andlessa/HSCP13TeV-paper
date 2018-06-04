@@ -11,7 +11,7 @@
 
 from RandomScan import scan
 from plots.plotScan import plotScan
-from scanHelpers import writeSummary,getPoints 
+from scanHelpers import writeSummary,getSLHAPoints 
 import numpy as np
 import os
 import multiprocessing
@@ -48,7 +48,7 @@ print(len(subset))
  
 parsExpr = ["blocks['EXTPAR'][23]","blocks['EXTPAR'][1]","blocks['EXTPAR'][2]","decays[1000024].totalwidth"]
 slhaFolder = outdir
-points,slhaFiles = getPoints(parsExpr,slhaFolder)
+points,slhaFiles = getSLHAPoints(parsExpr,slhaFolder)
 header = ['mu (GeV)', 'M1 (GeV)', 'M2 (GeV)', 'Width (GeV)']
 outfile = os.path.join(slhaFolder,'summary.txt')
 writeSummary(points,header,outfile,slhaFiles=slhaFiles)
