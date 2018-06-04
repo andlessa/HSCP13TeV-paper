@@ -15,7 +15,7 @@ import logging as logger
 import matplotlib.pyplot as plt
 import itertools,copy
 import tempfile
-from getSpectrum import getSpectrum,getInputFile,pars2x,x2pars
+from scanHelpers import getSpectrum,getInputFile,pars2x,x2pars
   
 
 def getNextStep(x0,sigma=10.):
@@ -167,9 +167,8 @@ def walk(yExpr,pars0,npts=100,ntries=100,fakeEff=0.05,sigmaStep=50.,
     return np.array(chain)
 
 
-def plotChain(chain,doLog=True):
+def plotChain(chain,pars,doLog=True,doLines=True):
     
-    pars = ['mu (GeV)','M1 (GeV)','M2 (GeV)']
     ndim = len(pars)
     plt.figure(figsize=(15,15))
     nplot = 401+10*ndim
@@ -185,7 +184,8 @@ def plotChain(chain,doLog=True):
             continue
         plt.subplot(nplot)                    
         plt.scatter(chain[:,ix],chain[:,iy],c=Y,s=50,vmin=min(Y),vmax=max(Y),cmap=cm)
-        plt.plot(chain[:,ix],chain[:,iy],'--')
+        if doLines:
+            plt.plot(chain[:,ix],chain[:,iy],'--')
         plt.colorbar()
         plt.xlabel(var1)
         plt.ylabel(var2)

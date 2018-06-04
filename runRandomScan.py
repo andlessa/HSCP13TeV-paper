@@ -9,7 +9,9 @@
 """
 
 
-from RandomScan import scan,plotScan,writeSummary,getPoints 
+from RandomScan import scan
+from plots.plotScan import plotScan
+from scanHelpers import writeSummary,getPoints 
 import numpy as np
 import os
 import multiprocessing
