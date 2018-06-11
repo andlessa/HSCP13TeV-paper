@@ -50,12 +50,12 @@ def plotScan(points,axes,coloraxis=None,doLog=True,doLines=False):
         if coloraxis:
             if doLog:
                 ax.scatter(points[:,ix],points[:,iy],c=Z,norm=LogNorm(vmin=Z.min(), vmax=Z.max()),
-                            s=50,vmin=Z.min(),vmax=Z.max(),cmap=cm)
+                            vmin=Z.min(),vmax=Z.max(),cmap=cm)
             else:
                 ax.scatter(points[:,ix],points[:,iy],c=Z,
-                            s=50,vmin=Z.min(),vmax=Z.max(),cmap=cm)            
+                            vmin=Z.min(),vmax=Z.max(),cmap=cm)            
         else:
-            ax.scatter(points[:,ix],points[:,iy],s=50)       
+            ax.scatter(points[:,ix],points[:,iy])       
         if doLines:
             ax.plot(points[:,ix],points[:,iy],'--')        
         ax.set_xlabel(var1)
