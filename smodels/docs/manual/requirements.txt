@@ -1,7 +1,0 @@
-###### pyhtonic requirements ######
-jupyter
-nbconvert
-unum
-pyslha
-numpy
-scipy

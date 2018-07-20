@@ -1,5 +1,0 @@
-Known Issues, v1.1.1
-=======================================================
-
- * Interpolation of experimental results gives slightly different results
-   when using older versions of lapack (called by scipy).
