@@ -1,7 +1,11 @@
 # HSCP13TeV-paper
 Material for the HSCP - 13 TeV paper
 This repository holds the main code used for the HSCP 13 TeV release paper.
-It is based on the 13 TeV CMS search for long-lived particles [CMS-PAS-EXO-16-036](http://cms-results.web.cern.ch/cms-results/public-results/preliminary-results/EXO-16-036/).
+It is based on the 13 TeV and 8 TeV CMS searches for long-lived particles:
+
+  * [CMS-PAS-EXO-16-036](http://cms-results.web.cern.ch/cms-results/public-results/preliminary-results/EXO-16-036/)
+  * [CMS-EXO-13-006](https://arxiv.org/abs/1502.02522) and [CMS-PAS-EXO-13-006](https://cds.cern.ch/record/1648902/files/EXO-13-006-pas.pdf)
+  * [CMS-EXO-12-026](https://twiki.cern.ch/twiki/bin/view/CMSPublic/PhysicsResultsEXO12026)
 
 
 ## Basic Installation ##
@@ -9,8 +13,7 @@ It is based on the 13 TeV CMS search for long-lived particles [CMS-PAS-EXO-16-03
 The HSCP SModelS branch and the HSCP SModelS Database branch are already included as subtrees.
 Furthermore the following codes may be useful:
 
-  * [SPheno](https://spheno.hepforge.org/) (optional)
-  * [MadGraph](https://sarah.hepforge.org/)
+  * [MadGraph](https://launchpad.net/mg5amcnlo)
 
 The script installer.sh will try to fetch the appropriate tarballs and try to install them.
 
