@@ -7,3 +7,4 @@ data/IDM/slha_files_IDM.tar.gz filter=lfs diff=lfs merge=lfs -text
 data/IDM/smodelsOutput_IDM.tar.gz filter=lfs diff=lfs merge=lfs -text
 data/gravitino_stau/slha_files_TRg1E6.tar.gz filter=lfs diff=lfs merge=lfs -text
 data/gravitino_stau/smodelsOutput_TRg1E6.tar.gz filter=lfs diff=lfs merge=lfs -text
+data/IDM/2sigma_smallDetaM_xsecs.tar.gz filter=lfs diff=lfs merge=lfs -text
