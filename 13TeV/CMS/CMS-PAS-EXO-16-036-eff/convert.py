@@ -51,7 +51,9 @@ datasetNames = ['c000','c100','c200','c300']
 observedNs = [5,1,0,0] #Extracted from a fit of the data
 expectedBGs = [2.63,0.3377,0.0258,0.0045] #Extracted from a log fit of CMS BG
 bgErrors = [0.53,0.127,0.0036,0.001] #Estimated from the error between a log fit and a linear fit of the CMS BG
+#Interpolated SR Upper limits from the PAS (Tables 5 and 6). Note that the SR UL are given by obs_UL*eff (from the table)
 obsUpperLimits = ['0.624*fb','0.306*fb','0.24*fb','0.24*fb']
+#Interpolated expected SR Upper limits from the PAS (Tables 5 and 6). Note that the SR UL are given by exp_UL*eff (from the table)
 expUpperLimits = ['0.436*fb','0.242*fb','0.241*fb','0.240*fb'] #I've artificially increase the expUL a bit, so the SR with the largest Mreco is selected
 
 for i,name in enumerate(datasetNames):
