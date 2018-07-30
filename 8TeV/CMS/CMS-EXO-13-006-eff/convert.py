@@ -52,8 +52,8 @@ info.supersedes =''
 #++Define list of datasets++
 datasetNames = ['c000','c100','c200','c300']
 observedNs = [42,7,0,0]
-expectedBGs = [44.,5.6,0.56,0.02]
-bgErrors = [9.,1.1,0.11,0.004]
+expectedBGs = [44.,5.6,0.56,0.09]
+bgErrors = [9.,1.1,0.11,0.02]
 #SR Upper limits from arxiv:1502.02522 (Table 2). Note that the SR UL are given by obs_UL*eff (from the table)
 obsUpperLimits = ['1.02*fb','0.45*fb','0.17*fb','0.16*fb']
 #SR Expected Upper limits from arxiv:1502.02522 (Table 2). Note that the SR UL are given by exp_UL*eff (from the table)
