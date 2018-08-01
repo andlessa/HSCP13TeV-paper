@@ -1,0 +1,59 @@
+The results below were computed using some of the results/code from the DarkMatter-LLP repo
+-------------------------------------------------------------------------------------------
+
+
+8 TeV
+------
+mass = 620
+ctau = 113.2855
+width = 1.67e-18
+fLLP = 0.9242325
+Flong_computed = 0.9613662
+gb_computed = 2.24
+e12 (c300) = 0.572
+e1 (c300) = 0.324
+xsec (fb) = 0.146
+
+==================
+theory prediction:
+    full sim (xsec*eff) = 0.0761244
+    xsec*fLLP*e12 = 0.0771845
+    SModelS (gb_default) = 7.35E-02
+    SModelS (gb_computed) = 7.76E-02 
+
+
+mass = 620.
+ctau = 1.04338
+width = 1.885e-16
+fLLP = 1.79e-04
+Flong_computer = 1.2979e-02
+gb_computed = 2.206
+e12 (c300) = 0.572
+e1 (c300) = 0.324
+xsec (fb) = 0.146
+
+==================
+theory prediction:
+    full sim (xsec*eff) = 1.62936e-5
+    xsec*fLLP*e12 = 1.49486e-5
+    SModelS (gb_default) = 7.95E-8
+    SModelS (gb_computed) = 1.54E-5
+
+
+mass = 620.
+ctau = 0.5677
+width = 3.464e-16
+fLLP = 5.4e-07
+Flong_computer = 2.97e-04
+gb_computed = 2.168
+e12 (c300) = 0.572
+e1 (c300) = 0.324
+xsec (fb) = 0.146
+
+==================
+theory prediction:
+    full sim (xsec*eff) = 5.05452e-8
+    xsec*fLLP*e12 = 4.50965e-8
+    SModelS (gb_default) = 1.75E-10  (1.67213e-10)
+    SModelS (gb_computed) = 4.67E-8 (4.5246e-8)
+
