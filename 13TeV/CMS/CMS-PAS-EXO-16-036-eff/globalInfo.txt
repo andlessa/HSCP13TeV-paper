@@ -7,4 +7,4 @@ contact: Andre Lessa <lessa.a.p@gmail.com>; Jan Heisig <heisig@physik.rwth-aache
 comment: Search for long-lived charged particles implemented using a correction factor for the 8 TeV efficiencies.
 private: False
 implementedBy: Andre Lessa
-lastUpdate: 2018/7/20
+lastUpdate: 2018/8/3

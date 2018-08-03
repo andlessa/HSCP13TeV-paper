@@ -44,6 +44,7 @@ info.lumi = 18.8
 info.prettyName ='hscp search'
 info.private = False
 info.contact ='cms-pag-conveners-exotica@cern.ch'
+info.arxiv = 'https://arxiv.org/abs/1305.0491'
 info.comment ='Upper limits digitized from Track+TOF png plots. Used conservative gluino bounds (50% gluino ball probability).  '
 
 #+++++++ dataset block ++++++++++++++
