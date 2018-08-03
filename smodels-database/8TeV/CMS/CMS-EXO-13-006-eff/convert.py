@@ -69,7 +69,7 @@ for i,name in enumerate(datasetNames):
 
     #+++++++ txnames ++++++++++++++++++++
     #+++++++ next txName block ++++++++++++++
-    HSCPM1 = dataset.addTxName('THSCPM1')
+    HSCPM1 = dataset.addTxName('THSCPM1b')
     HSCPM1.checked =''
     HSCPM1.constraint = "[[],[]]"
     HSCPM1.condition =None
@@ -79,7 +79,7 @@ for i,name in enumerate(datasetNames):
     HSCPM1.source = 'SModelS'
     #+++++++ next mass plane block ++++++++++++++
     plane = HSCPM1.addMassPlane([[x],[x]])
-    plane.setSources(dataLabels= ['efficiencyMap'],dataFiles=['orig/eff_HSCPM1_'+name+'.txt'], dataFormats=['txt'])
+    plane.setSources(dataLabels= ['efficiencyMap'],dataFiles=['orig/effmap_M1_stau_8TeV_mre'+name+'.dat'], dataFormats=['txt'])
     #+++++++ next txName block ++++++++++++++
     HSCPM3 = dataset.addTxName('THSCPM3')
     HSCPM3.checked =''
@@ -133,7 +133,7 @@ for i,name in enumerate(datasetNames):
     plane = HSCPM8.addMassPlane([[x,y],[x,y]])
     plane.setSources(dataLabels= ['efficiencyMap'],dataFiles=['orig/eff_HSCPM8_'+name+'.txt'], dataFormats=['txt'])
     #+++++++ next txName block ++++++++++++++
-    HSCPM2 = dataset.addTxName('THSCPM2')
+    HSCPM2 = dataset.addTxName('THSCPM2b')
     HSCPM2.checked =''
     HSCPM2.constraint = "[[*],[]]" ##Here [*] represents one branch with any list of vertices
     HSCPM2.condition =None
@@ -144,7 +144,7 @@ for i,name in enumerate(datasetNames):
     HSCPM2.source = 'SModelS'
     #+++++++ next mass plane block ++++++++++++++
     plane = HSCPM2.addMassPlane([['*'],[x]]) ##Here ['*'] represents a mass array with any length
-    plane.setSources(dataLabels= ['efficiencyMap'],dataFiles=['orig/eff_HSCPM2_'+name+'.txt'], dataFormats=['txt'])
+    plane.setSources(dataLabels= ['efficiencyMap'],dataFiles=['orig/effmap_M2_stau_8TeV_mre'+name+'.dat'], dataFormats=['txt'])
     #+++++++ next txName block ++++++++++++++
     HSCPM4 = dataset.addTxName('THSCPM4')
     HSCPM4.checked =''
