@@ -9,3 +9,5 @@ data/gravitino_stau/slha_files_TRg1E6.tar.gz filter=lfs diff=lfs merge=lfs -text
 data/gravitino_stau/smodelsOutput_TRg1E6.tar.gz filter=lfs diff=lfs merge=lfs -text
 data/IDM/2sigma_smallDetaM_xsecs.tar.gz filter=lfs diff=lfs merge=lfs -text
 data/gravitino_stau/slha_files_July2018_TRg1E7_additional_points.tar.gz filter=lfs diff=lfs merge=lfs -text
+data/gravitino_stau/June2018_TRg1E7_ALLbutHSCP_inclTanb_vlooseBBN.dat filter=lfs diff=lfs merge=lfs -text
+data/IDM/IDM1705014581_2sigma_wID_smallsplitting_added_Xenon.dat filter=lfs diff=lfs merge=lfs -text
