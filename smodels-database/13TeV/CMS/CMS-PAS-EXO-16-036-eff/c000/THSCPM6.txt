@@ -6,7 +6,7 @@ susyProcess: pp --> squark squark, squark squark --> quark quark lsp lsp, lsp --
 figureUrl: None
 dataUrl: None
 source: SModelS
-validated: TBD
+validated: N/A
 axes: [['*'], [x, y, z]]
 finalState: ['MET', 'HSCP']
 efficiencyMap: [[['*',[1.1500E+02*GeV,1.0700E+02*GeV,1.0000E+02*GeV]],0.071419],

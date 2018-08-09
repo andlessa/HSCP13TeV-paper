@@ -6,7 +6,7 @@ susyProcess: pp --> squark squark, squark --> quark quark stau_1
 figureUrl: None
 dataUrl: None
 source: SModelS
-validated: TBD
+validated: N/A
 axes: [[x, y], [x, y]]
 finalState: ['HSCP', 'HSCP']
 efficiencyMap: [[[[2.0500E+02*GeV,2.0000E+02*GeV],[2.0500E+02*GeV,2.0000E+02*GeV]],0.31693],
