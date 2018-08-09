@@ -6,7 +6,7 @@ susyProcess: pp --> squark squark, squark --> quark chargino_1 (quark lsp)
 figureUrl: None
 dataUrl: None
 source: SModelS
-validated: TBD
+validated: N/A
 axes: [['*'], [x, y]]
 finalState: ['MET', 'HSCP']
 efficiencyMap: [[['*',[5.0500E+02*GeV,5.0000E+02*GeV]],0.27845],
