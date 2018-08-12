@@ -50,7 +50,7 @@ For optimizing some observable using a simple MCMC scan, see the example file
 
 These files also illustrate how to make simple plots of the scans.
 
-## Plotting ##
+## Analysing Results and Plotting ##
 
 For plotting 1D histograms of excluded and allowed points:
 
