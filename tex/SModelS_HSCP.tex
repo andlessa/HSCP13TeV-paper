@@ -162,16 +162,17 @@
 
 \title{{%\bf
 Constraining new physics with
-searches for long-lived particles:
-Implementation into SModelS} \com{Constraining new physics with
-searches for long-lived particles WITH SModelS}? }
+searches for long-lived particles with SModelS}}
 
 \date{August 15, 2018}
-\author{Jan Heisig}
-\address{Institute for Theoretical Particle Physics and Cosmology, RWTH Aachen University, 52056 Aachen, Germany}
-\author{Andre Lessa}
-\address{Centro de Ci\^encias Naturais e Humanas, Universidade Federal do ABC, Santo Andr\'e, 09210-580 SP, Brazil}
-\author{Sabine, Wolfgang,...?}
+\author[a]{Jan Heisig}
+\address[a]{Institute for Theoretical Particle Physics and Cosmology, RWTH Aachen University, 52056 Aachen, Germany}
+\author[b]{Sabine Kraml}
+\address[b]{Laboratoire de Physique Subatomique et de Cosmologie, Universit\'e
+    Grenoble-Alpes, CNRS/IN2P3, 53 Avenue des Martyrs, F-38026 Grenoble, France}
+\author[c]{Andre Lessa}
+\address[c]{Centro de Ci\^encias Naturais e Humanas, Universidade Federal do ABC, Santo Andr\'e, 09210-580 SP, Brazil}
+
 
 \begin{abstract}
 Long-lived particles have received an increasingly attention from
@@ -186,7 +187,7 @@ the Two Higgs Inert Doublet Model (IDM) and a gravitino dark matter model contai
 While missing energy searches are not able to constrain any significant
 part of the cosmologically allowed parameter space of the IDM model,
 we find that HSCP searches are sentive up to dark
-matter masses of 550\,GeV (for small mass splittings within the inert
+matter masses of 580\,GeV (for small mass splittings within the inert
 doublet). The gravitino dark matter model on the other hand can be constrained by both HSCP and $R$-hadron searches, which can become
 valuable for determining the allowed ranges of the cosmological reheating temperature in this scenario.
 \end{abstract}
@@ -216,9 +217,9 @@ Simplified models have turned out to provide useful
 benchmarks for interpreting LHC results and investigating their implications
 aiming to answer the open questions of today's fundamental physics. \smo~\cite{Kraml:2013mwa,Ambrogi:2017neo}
 provides a very efficient framework for this
-reinterpretation by decomposing the signal of an arbitrary new physics model (respecting a $Z_2$ 
-symmetry or a larger symmetry with a $Z_2$ subgroup) into simplified model topologies.
-This allows one to directly use the cross section upper limits or efficiency maps provided by the experimental 
+reinterpretation by decomposing the signal of an arbitrary new physics model (respecting a  ${\cal{Z}}_2$ 
+symmetry or a larger symmetry with a  ${\cal{Z}}==_2$ subgroup) into simplified model topologies.
+This allows one to directly use the cross-section upper limits or efficiency maps provided by the experimental 
 collaborations within the simplified model framework to constrain a larger
 variety of BSM scenarios.\footnote{A certain degree of approximation is included in this procedure, since it  neglects properties like the exact production mechanism and the spin of the  particles in decays, see Ref.~\cite{Edelhauser:2014ena,Edelhauser:2015ksa,Arina:2015uea,Kraml:2016eti} for specific discussions.}
 
@@ -237,7 +238,7 @@ charged particles (HSCPs) and $R$-hadrons\footnote{For simplicity we label elect
 In particular, we improve upon previous work~\cite{Heisig:2015yla} adding 
 efficiency maps for the CMS 13\,TeV HSCP analysis~\cite{CMS-PAS-EXO-16-036} and reconsidering the modeling of intermediate lifetimes.
 We also include the experimental 
-cross section upper limits for the direct production of HSCPs~\cite{Khachatryan:2015lla,CMS-PAS-EXO-16-036} and $R$-hadrons~\cite{CMS-PAS-EXO-16-036}.
+cross-section upper limits for the direct production of HSCPs~\cite{Khachatryan:2015lla,CMS-PAS-EXO-16-036} and $R$-hadrons~\cite{CMS-PAS-EXO-16-036}.
 Finally, \smo~1.2 is made publicly available.\footnote{The SModelS tool and database are available at \href{http://smodels.hephy.at}{http://smodels.hephy.at}}
 
 %\com{mention first paper, how SMS used for LLPs; tell what's the difference: 
@@ -250,7 +251,7 @@ we show that for small mass splittings within the inert doublet a large range of
 can be tested by the HSCP searches.
 
 Secondly, we consider the minimal supersymmetric standard model (MSSM) 
-where the gravitino is assumed to be the lightest supersymmetric particle (LSP) and the stau to be next-to-LSP (NLSP). This is a cosmologically attractive scenario allowing to alleviate the gravitino problem\com{REF?} and to accommodate large reheating temperatures $T_\text{R}\sim10^9\,$GeV
+where the gravitino is assumed to be the lightest supersymmetric particle (LSP) and the stau to be next-to-LSP (NLSP). This is a cosmologically attractive scenario allowing to alleviate the gravitino problem~\cite{Weinberg:1982zq,Ellis:1984eq,Falomkin:1984eu,Ellis:1984er} and to accommodate large reheating temperatures $T_\text{R}\sim10^9\,$GeV
 in the early Universe while respecting bounds from big bang nucleosynthesis (BBN)~\cite{}.
 The complexity of the model reveals a large number of contributing topologies including
 $R$-hadron signatures relevant for both squarks and gluinos when their decays are 3- or 4-body suppressed.
@@ -296,11 +297,12 @@ rescale the branching ratios, thus resulting in an effective topology cross-sect
 \text{BR}_i \times \mathcal{F}_\text{prompt}^i \right)
 \mathcal{F}_\text{long}^X \mathcal{F}_\text{long}^Y \,,
 \end{equation}
-where $\sigma_\text{prod}$ is the production cross section of the mother particles and
+where $\sigma_\text{prod}$ is the production cross-section of the mother particles and
 $X,Y$ are the BSM final states of the two decay chains while $i$ runs over all intermediate 
 BSM particles. Given the particle proper lifetime ($\tau$), the fraction of produced particles which decay promptly ($\mathcal{F}_\text{prompt}$)
 and decay outside the detector ($\mathcal{F}_\text{prompt}$) can be approximated by:
 \begin{equation}
+\label{eq:fprompt}
 \mathcal{F}_\text{prompt} = 1-\exp\left(-\frac{1}{c\tau}\left\langle\!\frac{\ell_\text{inner}}{\gamma \beta} \!\right\rangle_{\!\!\text{eff}\,}\right)
 \end{equation}
 and
@@ -313,7 +315,7 @@ where we choose $\langle\ell_\text{inner}/\gamma\beta\rangle_\text{eff}=1\,$mm a
 All topologies terminating in long-lived neutral particles provide a signature of missing transverse energy (MET) and can be constrained by  the bulk of SUSY searches. These, however, do not apply
 to topologies which end with a color or electrically-charged BSM final state. In order to test these scenarios \smo~1.2 includes the CMS searches for HSCPs, color-octet (gluino-like) $R$-hadrons
 and color-triplet (squark-like)  $R$-hadrons  at 8\,TeV~\cite{Chatrchyan:2013oca} and 13\,TeV~\cite{CMS-PAS-EXO-16-036} center-of-mass energies. For the 8\,TeV  HSCP results we make use of the recasting provided in Ref.~\cite{Khachatryan:2015lla}, while a dedicated recasting was performed for the 13\,TeV results (see~\ref{app:rec13} for details). This allowed us to compute efficiency maps for the 8 simplified model topologies introduced in Ref.~\cite{Heisig:2015yla}, which are included in the \smo~1.2 database.
-For the $R$-hadron searches we consider only the direct production topology\footnote{As $R$-hadrons are strongly produced their production via cascade decays in typically expected to be less important.} and make use of the cross section upper limits from Refs.~\cite{Chatrchyan:2013oca,CMS-PAS-EXO-16-036}, which are also included in the \smo\ database.
+For the $R$-hadron searches we consider only the direct production topology\footnote{As $R$-hadrons are strongly produced their production via cascade decays in typically expected to be less important.} and make use of the cross-section upper limits from Refs.~\cite{Chatrchyan:2013oca,CMS-PAS-EXO-16-036}, which are also included in the \smo\ database.
 
 %
 %Briefly review topologies used and our efficiency maps~\cite{Heisig:2015yla}.
@@ -394,7 +396,7 @@ where
 \begin{equation}
 	\lambda_{L,S} = \frac{1}{2} \left( \lambda_3 + \lambda_4 \pm \lambda_5 \right)\,,
 \end{equation}
-After imposing $m_{\hn} \simeq 125.09$\,GeV~\cite{pdg}, we are left with five free physical parameters: $m_{\Hn}$, $m_{\An}$, $m_{\Hp}$, $\lambda_L$ and $\lambda_2$. \com{not $\lambda_S$?}
+After imposing $m_{\hn} \simeq 125.09$\,GeV~\cite{pdg}, we are left with five free physical parameters: $m_{\Hn}$, $m_{\An}$, $m_{\Hp}$, $\lambda_L$ and $\lambda_2$.
 
 
 
@@ -406,47 +408,9 @@ provides sensitivity up to $m_{\Hn}\simeq 55\,$GeV only~\cite{Belanger:2015kga}.
 However, in this low-mass region, the $\Hn$ thermal relic density ($\Omega_{\text{IDM}}$) is above
 the observed dark matter density ($\Omega_{\text{CDM}}$).
 There are three regions where the IDM can account for the entire observed relic density ($55\,\text{GeV}\lesssim m_{\Hn} \le m_{h^0}/2$, $m_{\Hn}\simeq72\,\text{GeV}$ and $m_{\Hn}\gtrsim 500\,\text{GeV}$) and a region where it can account only for a fraction of $\Omega_{\text{CDM}}$  ($72 \lesssim m_{\Hn} \lesssim 500\,\text{GeV}$)~\cite{Goudelis:2013uca,Eiteneuer:2017hoh}.
-%Furthermore, we checked that current 13\,TeV analyses~\cite{Aaboud:2017leg,Aaboud:2018jiw} do not significantly change the picture.
-%Considering non-MET signatures the situation is, however, different. As pointed out in~\cite{Belyaev:2016lok} the mass degenerate region $\Delta m \equiv m_\Hp - m_\Hn \lesssim 1\,$GeV is potentially accessible at LHC up to much larger $m_{\Hn}$ in searches for long-lived particles. It is interesting to note that in the third region mentioned above ($m_{\Hn}\gtrsim 500\,\text{GeV}$) a rather small mass splitting ($| m_{\Hn} - m_{\An/\Hp} |$ below a few GeV) is required in order to match the relic density constraint~\cite{Hambye:2009pw,Belyaev:2016lok}.
 
 In this work we focus on the region with small mass splittings ($\Delta m = m_{\Hp} - m_{\Hn} \le1\,\text{GeV}$) and use \smo~1.2 to reinterpret the LHC limits from HSCP searches within the IDM model. 
 For this purpose we perform a scan over the IDM 5-dimensional parameter space restricted to:
-%
-%
-%%it can affect electroweak 
-%%symmetry breaking~\cite{Deshpande:1977rw,Barbieri:2006dq,Hambye:2007vf,Khan:2015ipa,
-%%Swiezewska:2015paa,Plascencia:2015xwa}, give rise to interesting, observable effects at colliders~\cite{Belyaev:2016lok,Lundstrom:2008ai,
-%%Pierce:2007ut,Cao:2007rm,Dolle:2009ft,Miao:2010rg,Arhrib:2012ia,Gustafsson:2012aj,Swiezewska:2012eh,
-%%Goudelis:2013uca,Belanger:2015kga}, modifiy electroweak baryogenesis~\cite{Chowdhury:2011ga,Borah:2012pu}, 
-%%play a role in the generation of neutrino masses \cite{Ma:2006km} and, as being the focus of this work, 
-%%it contains a WIMP that can account for the observed DM
-%%in the Universe with observable signatures in direct and indirect detection experiments~\cite{Barbieri:2006dq,Goudelis:2013uca,
-%%LopezHonorez:2006gr,Hambye:2009pw,Honorez:2010re,LopezHonorez:2010tb,Gustafsson:2007pc,
-%%Agrawal:2008xz,Andreas:2009hj,Nezri:2009jd,Garcia-Cely:2013zga,Garcia-Cely:2015khw,Queiroz:2015utg,Benito:2016kyp}.
-%
-%
-%%\com{JH: Instead of selling it as if we just use the scan from~\cite{Eiteneuer:2017hoh} we could
-%%alternatively go like this:
-%%\begin{itemize}
-%%\item IDM hard to constrain with LHC, cite~\cite{}, very weak constraints, MET does not constrain allowed parameter space (from relic density)
-%%\item as pointed out in~\cite{} mass generate region potentially accessible at LHC
-%%\item here we follow the same setup as in~\cite{Eiteneuer:2017hoh} but focus on the region with small mass splittings (and update DD)
-%%\end{itemize}}
-%
-%%
-%%% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-%%\subsubsection{Scan setup}
-%%% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-%
-%%In~\cite{Eiteneuer:2017hoh} the dark matter relic density~\cite{Ade:2015xua} and a number experimental 
-%%and theoretical constraints have been fitted within the IDM\@. 
-%The fit considers the general case
-%that the IDM constitutes a (dominant or subdominant) fraction of the %total measured dark matter density,
-%$ R\equiv \Omega_\text{IDM}/\Omega_{\text{CDM}}$, where %$\Omega_{\text{CDM}}h^2=0.1189$~\cite{Ade:2015xua}
-%and $\Omega_\text{IDM}$ is calculated using %\textsc{micrOMEGAs}~\cite{Belanger:2014vza}.
-%Including $R$ as a fit  parameter the scan explores the six-dimension
-%parameter space:
-%The scan explores the following parameter space:
 \bea
 100 \GEV \le & \!m_{H^0} \!&\le1\TEV \nonumber \\
 m_{H^0} < & \!m_{A^0} \!& \le1.1\TEV \nonumber \\
@@ -460,13 +424,13 @@ electroweak precision observables~\cite{Baak:2014ora,Eriksson:2009ws}, from sear
 indirect detection limits from  $\gamma$-ray observations of dwarf spheroidal galaxies~\cite{Fermi-LAT:2016uux}
 and theoretical constraints on unitarity, perturbativity and vacuum stability computed with \textsc{2HDMC}~\cite{Eriksson:2009ws} (see Ref.~\cite{Eiteneuer:2017hoh} for further details\footnote{With respect to Ref.~\cite{Eiteneuer:2017hoh}, in this work we update 
     direct detection constraints additionally imposing the 90\% CL upper limits on the spin-independent
-    dark matter-nucleon scattering cross section recently obtained by Xenon1T~\cite{Aprile:2018dbl}.
+    dark matter-nucleon scattering cross-section recently obtained by Xenon1T~\cite{Aprile:2018dbl}.
 }).
 In the following we only consider points allowed within the $2\sigma$ region of the above constraints.
 We use the nested-sampling algorithm \textsc{Multinest}~\cite{Feroz:2008xx,Feroz:2013hea} 
 to efficiently explore the parameter space. 
 
-For the allowed parameter space we compute the decay tables and production cross sections
+For the allowed parameter space we compute the decay tables and production cross-sections
 with \textsc{MadGraph5\_aMC@NLO}~\cite{Alwall:2014hca} and compute the LHC constraints with \smo~1.2. 
 For each parameter space point the constraining power of LHC
 searches can be conveniently parametrized by the ratio of the relevant signal cross-section ($\sigma_{th}$) to the corresponding analysis upper limit ($\sigma_{UL}$): $r = \sigma_{th}/\sigma_{UL}$ (see Ref.~\cite{Ambrogi:2017neo} for more details).
@@ -474,153 +438,68 @@ If $r \geq 1$ for at least one analysis we consider the point as being excluded.
 
 
 
-In Fig.~\ref{fig:idmres} we show the impact of the LHC constraints on the IDM parameter space. 
+The results are shown in Fig.~\ref{fig:idmres}.
 In the left panel we display the signal strength $r$
-in the $m_\Hn$-$c\tau_{H^\pm}$ plane while the right panel shows
+in the $m_\Hp$-$c\tau_{H^\pm}$ plane, while the right panel shows
 the dark matter fraction $R$ in the $m_\Hn$-$\Delta m$ plane.
 Although $r$ does in principle depend on all the model parameters,
 we can see that it is mostly driven by the charged Higgs mass and its lifetime. We hence show an approximate exclusion curve in
-the plot.
-As we can see, for large lifetimes, $c \tau \gtrsim 100\,$m, we are able to exclude points up to $m_\Hp\simeq 500\,$GeV.
-Since we consider regions with very small mass splittings, this bound also applies to the dark matter mass, $m_\Hn$.
-We have verified that, as expected, the HSCP searches are the only ones responsible for the exclusion shown.
+the plot (dark dashed curve). 
+In all the parameter space considered we have verified that
+the exclusion is completely dominated by the HSCP searches and even though the \smo\ MET constraints were also applied, they could not
+exclude any of the points.
+As seen in Fig.~\ref{fig:idmres}, in the quasi-stable limit ($c\tau\gtrsim10^3\,$m) HSCP searches exclude $\Hp$ masses up to 580\,GeV.
+This limit goes beyond the 13\,TeV LHC limit for direct production of detector-stable staus which reaches 
+$m_{\tilde\tau} = 360\,$GeV~\cite{CMS-PAS-EXO-16-036}. The reason for the higher reach is the appearance of 
+the additional $W$-mediated production channel $p p \to \Hn\Hp$ as well as (to a lesser extend and depending on $m_{\An}$)
+the channels $p p \to \An\Hp, \An \An$ with  $\An\to\Hp$.
+As an example, for $m_{\Hn} \simeq m_{\An} \simeq m_{\Hn} \simeq 520$~GeV
+we have $\sigma(\Hp \Hp) + \sigma(\Hp \Hn) + \sigma(\Hp \An) \simeq 1.14$~fb against $\sigma(\tilde\tau\tilde\tau) \simeq 0.15$~fb~\cite{CMS-PAS-EXO-16-036} for the same stau mass.
+
+At the lower edge of our scan range, for $m_\Hp\simeq m_\Hn\gtrsim100\,$GeV, HSCP searches are able to constrain
+decay lengths down to around $c \tau \simeq 2\,m$.
+Here the significant exponential suppression of ${\cal F}_\text{long}$ is
+compensated by the large cross-section. Note that our choice for $\langle\ell_\text{outer}/\gamma\beta\rangle_\text{eff}$
+leads to a somewhat conservative exclusion limit in this part of the parameter space (see left panel of Fig.~\ref{fig:leff}
+as well as the corresponding discussion in \ref{app:lifetime}). 
+We point out that the calculation of $ c\tau$ involves a certain degree of approximation. First, the decays are computed at leading order with \textsc{MadGraph5\_aMC@NLO} and the decay channels with first generation quarks in the final state are turned off once $\Delta m$ is smaller
+than the pion mass.
+This introduces the (artificial) gap seen at $c \tau \sim 100$~m, which would not appear if the proper phase-space including the pion mass were included.
 
 
 
- For even smaller splittings -- approaching quasi-stabile limit --
-the limit reaches up to around 540\,GeV maximally. 
-
-
-
-
-
-
-
-
-
-This curve is also shown in the right panel.
-
-\com{Needs to be put in sentences: which topologies contribute how much (reach goes above what expected from $H^\pm H^\mp$ alone); limit in $c\tau$; $c\tau$ versus $\Delta m $ mapping;
-some words about the gap at around 100MeV; comment on exclusion versus $R$, that is, cosmo implications;
-compare to the conclusion from~\cite{Belyaev:2016lok}; disappearing tracks}
-
-%\com{Some words about the gap at around 100MeV.}
-%\com{Some concluding remarks.} \com{Maybe compare to the conclusion from~\cite{Belyaev:2016lok} where
-%disappearing tracks are considered.}
-%\com{$c\tau$ versus $\Delta m $ mapping; reach goes above what expected from $H^\pm H^\mp$ alone because of 
-%other topologies...; }
+In the right panel of Fig.~\ref{fig:idmres} we show the HSCP exclusion curve in the $\Delta m$-$m_{\Hn}$ plane.
+As seen, the limits exclude a significant part of the parameter space with $\Delta m \lesssim 0.2\,$ GeV. Interestingly, the HSCP searches are starting to exclude part of the region with $R=1$, where the IDM can account for the entire observed relic density ($m_{\Hn} \gtrsim 500$~GeV). 
+Note that disappearing track searches have the potential to further extend the reach towards larger $\Delta m$~\cite{Belyaev:2016lok}.  
 
 %----------------------------------------------------------------------------------------------------------------
 \subsection{Gravitino dark matter scenario}\label{sec:grav}
 %----------------------------------------------------------------------------------------------------------------
 
-The gravitino -- the superpartner of the graviton -- is an attractive dark matter 
-candidate in supersymmetric theories~\cite{Fayet:1981sq,Pagels:1981ke}. Redering the gravitino to be the LSP
-can alleviate the gravitino problem
+The gravitino -- the superpartner of the graviton -- is an attractive dark matter candidate in supersymmetric theories~\cite{Fayet:1981sq,Pagels:1981ke}. Models where the gravitino ($\tilde G$) is the LSP can alleviate the gravitino problem
 %\cite{Weinberg:1982zq,Ellis:1984eq,Falomkin:1984eu,Ellis:1984er}
 which appears in neutralino LSP scenarios~\cite{Weinberg:1982zq,Ellis:1984eq,Falomkin:1984eu,Ellis:1984er}
-unless the gravitino is much heavier than the rest of the supersymmetric spectrum 
-which in turn severely limits the viable options for supersymmetry breaking.
-For a gravitino LSP the lightest sparticle of the MSSM (\emph{i.e.}~the NLSP) can
-be any sparticle. However, in order to not reintroduce a severe problem through
+unless the gravitino is much heavier than the rest of the supersymmetric spectrum which in turn severely limits the viable options for supersymmetry breaking.
+Once the gravitino is the LSP, the lightest sparticle of the MSSM (\emph{i.e.}~the NLSP) can be any sparticle. However, in order to not reintroduce a severe problem through
 late decays of the NLSP -- spoiling successful BBN predictions~\cite{Moroi:1993mb} -- certain choices
-appear more promising. For instance, the stau is an attractive NLSP candidate 
-providing a large annihilation cross section that reduces its freeze-out abundance.
-On the one hand this helps to evade bounds from BBN\@.
-On the other hand it reduces the contribution to the gravitino abundance through
-NLSP decays. This allows for a larger thermal contribution of gravitino 
-production while not over-closing the Universe. Since the thermal contribution is 
-(approximately) proportional
+appear more promising. For instance, the stau is an attractive NLSP candidate  providing a large annihilation cross-section, thus resulting in smaller freeze-out abundances. As a consequence, the impact of the late time decay $\tilde{\tau} \to \tau \tilde G$ on BBN is reduced.
+On the other hand it also reduces the contribution to the gravitino abundance through NLSP decays. This allows for a larger thermal contribution of gravitino production while not over-closing the Universe. Since the thermal contribution is (approximately) proportional
 to the reheating temperature, $\Omega^{\text{th}}_{\s G}\propto T_\text{R}$~\cite{Bolz:1998ek,Bolz:2000fu,Pradler:2006hh},
 it allows for higher values of $T_\text{R}$, as preferred by classes of models for leptogenesis and
-inflation.
+inflation\com{REFS?}.
 
-%Here we revisit the pMSSMconsider the scan ...
-%In the following we review the scan ...
-%Then confront with LHC limits..
-%discuss topologies.. 
-
-%\com{I guess we can go a bit more straight to the point in the following...}
-%Requiring supersymmetry to be a fundamental symmetry of nature necessarily introduces the
-%gravitino -- the superpartner of the graviton -- in the sparticle spectrum.
-%%The gravitino -- the superpartner of the graviton -- has necessarily to be considered when promoting supersymmetry to
-%%supergravity. 
-%Rendering the gravitino to be the LSP does not only provide a viable explanation of dark matter in the Universe~\cite{},
-%it also aleviates the gravitino problem with respect to the case of a neutralino LSP (unless the gravitino is much heavier than
-%the LSP)~\cite{}. Therefor a gravitino dark matter scenario appears as an attractive possibility.
-%Here we consider a simple extension of the MSSM solely adding the graviton multiplet to the spectrum. 
-
-%Due to the ver small (Planck-suppressed) coupling of the gravitino to the MSSM the evolution of its abundance in the early Universe does not follow the usual patter of thermalization and freeze-out realized in WIMP scenarios, instead the comoving number density of gravitinos can only increase. 
-%\com{Cannot be produced at the LHC (if so, only in decays).}
-
-
-%The production of gravitino dark matter in the early Universe involves two contributions, the thermal production of gravitinos during reheating as well as a non-thermal contribution from the decay of the NLSP (\emph{i.e.}~via the superWIMP mechanism~\cite{}). The former establishes a dependence on the reheating temperature while the latter is proportional to the NLSP abundance. 
-%Requiring the right relic density and taking into account bounds from BBN due to late NLSP decays as well as a variety
-%of constraints on the MSSM parameters from Higgs, precision and flavor physics and from direct BSM searches
-%one can conclude on the highest reheating temperatures that are consistent with the current data. Such an analysis
-%has been performed within the pMSSM plus gravitino where a stau NLSP in~\cite{Heisig:2013rya,Heisig:2013sva}.
 
 Here we revisit the parameter scan performed in~\cite{Heisig:2013rya,Heisig:2013sva} refining and updating the 
-constraints from long-lived particle searches at the LHC\@. In~\cite{Heisig:2013rya} searches for HSCPs and 
-$R$-hadrons at the the 8\,TeV LHC have been taken into account. The respective constraints from HSCP
-have been computed in an approximate way using the efficiencies from the direct production channel and
-the gaugino mediated supersymmetry breaking model as representative benchmarks. 
-%
-
-%
-%% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-%\subsubsection{Monte Carlo scan setup}
-%% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-%
-
-%=======================
-%    \                                           |
-%      \                                         |
+constraints from long-lived particle searches at the LHC\@. 
+%In~\cite{Heisig:2013rya} searches for HSCPs and 
+%$R$-hadrons at the the 8\,TeV LHC have been taken into account. The %respective constraints from HSCP
+%have been computed in an approximate way using the efficiencies from the %direct production channel and
+%the gaugino mediated supersymmetry breaking model as representative benchmarks. 
 %        \                                       |
-\begin{figure}[t]
-\centering
-\setlength{\unitlength}{1\textwidth}
-\begin{picture}(1,0.29)
-\put(0.0,-0.003){\includegraphics[clip, trim={0cm 0.6cm 0cm 0cm}, width=0.47\textwidth]{figures/Gravitino_all.png}}
-\end{picture}
-\caption{Effect of the LHC exclusion bounds on the otherwise allowed points in the plane spanned by 
-the gravitino mass and reheating temperature. 
-}
-\label{fig:gavitinores1}
-\end{figure}
-%                                      \         |
-%                                        \       |
-%                                          \     |
-%=======================
-%=======================
-%    \                                           |
-%      \                                         |
-%        \                                       |
-\begin{figure*}[h]
-\centering
-\setlength{\unitlength}{1\textwidth}
-\begin{picture}(0.96,0.37)
-\put(0.0,-0.00){\includegraphics[clip, trim={0cm 0.1cm 0cm 0cm}, width=0.478\textwidth]{figures/Gravitino_txnames.png}}
-\put(0.5,0.0){\includegraphics[clip, trim={0cm 0.1cm 0cm 0cm}, width=0.45\textwidth]{figures/Gravitino_missedTopos_nonexcluded.png}}
-\end{picture}
-\caption{Left panel: Number of excluded points as a function of the gluino mass. The color indicates the channel which leads to the exclusion. \com{more precisely?} The blue line indicates the number of points excluded by HSCP upper cross section limits only.
-Right panel: Number of non-excluded points with a total SUSY production cross section of more than 5\,fb. The color indicates the dominant channel among the missing topologies.}
-\label{fig:gavitinores2}
-\end{figure*}
-%                                      \         |
-%                                        \       |
-%                                          \     |
-%=======================
-
-
-
-
-
 %We consider the pMSSM\@. 
-The scan is performed in the framework of the pMSSM.
-Imposing the additional assumption
-$ m_{\s q_{1,2}}\equiv m_{\s Q_{1,2}}=  m_{\s u_{1,2}}\!= m_{\s d_{1,2}}$ we
-achieve a 17-dimensional parameter space with input parameters and scan ranges:\footnote{In this phenomenologically driven parameter scan the spectrum parameters of the third generation sfermions, 
+The scan is performed within the framework of the pMSSM, where
+the additional assumption $ m_{\s q_{1,2}}\equiv m_{\s Q_{1,2}}=  m_{\s u_{1,2}}\!= m_{\s d_{1,2}}$ has been imposed. In this way we
+achieve a 17-dimensional parameter space with input parameters and scan ranges given by:\footnote{In this phenomenologically driven parameter scan the spectrum parameters of the third generation sfermions, 
 $\mstau, \,m_{\tilde{t}_1}, \,m_{\tilde{b}_1}, \,\thest$ and $ \theta_{\tilde{t}}$, were 
 chosen as input parameters in order to obtain an equally good
 coverage of small and large mixing scenarios. Tree-level relations were used to translate these 
@@ -642,46 +521,103 @@ generator are used consistently.}
 1\TEV \le & M_3 & \le  5\TEV \nonumber 
 \eea
 The particle spectrum has been computed with \textsc{SuSpect}~2.41 \cite{Djouadi:2002ze}
-and \textsc{FeynHiggs}~2.9.2~\cite{Heinemeyer:1998yj}. The following hard constraints were required. The 
-lighter stau $\stau_1$ has to be the lightest sparticle within
-the MSSM and $m_h\;\,\text{or/and} \;\,m_H \in [123;128]\GEV$~\cite{pdg,Degrassi:2002fi}.
+and \textsc{FeynHiggs}~2.9.2~\cite{Heinemeyer:1998yj}. 
+Since we are interested in the gravitino LSP scenario with a stau NLSP, we have required all the points to have the lighter stau $\stau_1$ as the NLSP. In addition we have also imposed $m_h  \in [123;128]\GEV$~\cite{pdg,Degrassi:2002fi}.
 
 The decay widths and branching ratios have been computed with 
 \textsc{SDecay}~\cite{Djouadi:2006bz,Kraml:2007sx} and (in the case of missing dominant decay channels) \textsc{MadGraph5\_aMC@NLO}~\cite{Alwall:2014hca}, while
 the freeze-out abundance of staus have been computed with \textsc{micrOMEGAs}~2.4.5~\cite{Belanger:2008sj}.
-We considered constraints on the MSSM Higgs sector, performed at LEP, the Tevatron and the LHC~\cite{Bechtle:2011sb}
+We considered constraints on the MSSM Higgs sector\com{The end of the paragraph also mentions MSSM Higgs sector constraints. Clarify?}, performed at LEP, the Tevatron and the LHC~\cite{Bechtle:2011sb}
 and EW precision bounds~\cite{Group:2012gb,Bechtle:2012jw,Heinemeyer:2006px} as well as
-theoretical constrains arising from charge or color breaking vacua~\cite{Kitahara:2013lfa,Frere:1983ag,AlvarezGaume:1983gj,Claudson:1983et,Kounnas:1983td,Derendinger:1983bz}. With respect to~\cite{Heisig:2013rya} we
-imposed updated constraints on flavor constraints and $\text{BR}(B\to X_s\gamma) \in [3.0;3.64]\times 10^{-4}$ 
+theoretical constrains arising from charge or color breaking vacua~\cite{Kitahara:2013lfa,Frere:1983ag,AlvarezGaume:1983gj,Claudson:1983et,Kounnas:1983td,Derendinger:1983bz}. With respect to~\cite{Heisig:2013rya} we imposed updated flavor constraints: $\text{BR}(B\to X_s\gamma) \in [3.0;3.64]\times 10^{-4}$ 
 \cite{Amhis:2016xyh} and 
-$\text{BR}(B_s^0\to\mu^+\mu^-) \in [1.74;4.34] \times 10^{-9}$~\cite{Aaij:2017vad}
-and on the MSSM Higgs sector by applying the conservative constraints on $m_A$ and $\tan\beta$
+$\text{BR}(B_s^0\to\mu^+\mu^-) \in [1.74;4.34] \times 10^{-9}$~\cite{Aaij:2017vad}.
+Finally, limits on the MSSM Higgs sector were included by applying the conservative constraints on $m_A$ and $\tan\beta$
 derived in the $m_h^{\text{mod}+}$-scenario~\cite{Sirunyan:2018zut}. 
 
-For each point in the pMSSM parameter
-space 10 gravitino masses have been randomly generated. Among other conditions the respective mass range is govern
-by the requirement that the total gravitino abundance can match the measured dark matter abundance, 
+Since the gravitino mass can be taken as an additional free parameter, for each point in the pMSSM parameter space satisfying the above requirements, 10 gravitino masses have been generated. The randomly selected values were required to lie within an interval where the total $\tilde G$ abundance can match the measured dark matter abundance: 
 \begin{equation}
 \label{eq:Omcont}
 \Omega_{\s G}^{\text{non-th}} h^2+\Omega^{\text{th}}_{\s G}h^2  = \Omega_\text{CDM}h^2\,,
 \end{equation}
-where
-$\Omega^{\text{th}}_{\s G}h^2$ is a function of $T_\text{R}$~\cite{Bolz:1998ek,Bolz:2000fu,Pradler:2006hh}
-such that \eqref{eq:Omcont} is used
-to compute the respective $T_\text{R}$ that saturates $\Omega_\text{CDM}h^2=0.1189$. %~\cite{Ade:2013zuv}.
+where $\Omega^{\text{th}}_{\s G}h^2$ and $\Omega_{\s G}^{\text{non-th}} h^2$ are the thermal and non-thermal gravitino relic abundances, respectively.
+The latter is generated once the frozen-out $\tilde{\tau}$s decay to $\tilde G$s,
+thus enhancing the total gravitino abundance.
+On the other hand the thermal gravitino relic abundance is mostly determined by the reheat temperature, $T_\text{R}$~\cite{Bolz:1998ek,Bolz:2000fu,Pradler:2006hh}.
+Therefore, given a pMSSM point (and hence $\Omega_{\s G}^{\text{non-th}} h^2$), the reheating temperature is computed imposing \eqref{eq:Omcont} with $\Omega_\text{CDM}h^2=0.1189$. %~\cite{Ade:2013zuv}.
 For each of the resulting points in the (17+1)-dimensional parameter space (that by construction fulfills the
 relic density constraint) constraints from BBN~\cite{Jedamzik:2007qk,Jedamzik:2006xz}\footnote{Furthermore, constraints from diffuse gamma ray
-observations~\cite{Sreekumar:1997yg,Kribs:1996ac} have been consider, which, however, have found to be much less relevant~\cite{Heisig:2013sva}.}
-have been imposed which depend on the freeze-out abundance, the lifetime and the hadronic branching ratios
-of the stau decaying into the gravitino. The latter have been computed with the spin-$3/2$ extension of \textsc{MadGraph}~\cite{Hagiwara:2010pi,Alwall:2007st}. For further details we refer to~\cite{Heisig:2013rya,Heisig:2013sva}.
+observations~\cite{Sreekumar:1997yg,Kribs:1996ac} have been considered, which, however, have found to be much less relevant~\cite{Heisig:2013sva}.}
+have been imposed (see Refs.~\cite{Heisig:2013rya,Heisig:2013sva} for further details).
+% which depend on the freeze-out abundance, the lifetime and the hadronic branching ratios
+%of the stau decaying into the gravitino.
+%The latter have been computed with the spin-$3/2$ extension of \textsc{MadGraph}~\cite{Hagiwara:2010pi,Alwall:2007st}. For further details we refer to~\cite{Heisig:2013rya,Heisig:2013sva}.
 
-Here we use \smo~1.2 to decompose the signal into all occurring simplified model topologies, including and
-constrain them by 8TeV HSCP as well as 13TeV HSCP and $R$-hadron searches. 
-\com{More?}
-The cross sections are computed with \textsc{Pythia}~8~\cite{} and \textsc{NLLFast}~\cite{}.
 
-The result is shown in Fig.~\ref{fig:gavitinores1}. \com{Discuss. Missing topologies: 1. HSCP + 4-body decays (gluino -> sq* + jet -> ewino* + q -> f + stau. So it happend for mstau  < mgluino < mEWinos,msquarks.}
+\begin{figure}[t]
+    \centering
+    \setlength{\unitlength}{1\textwidth}
+    \begin{picture}(1,0.29)
+    \put(0.0,-0.003){\includegraphics[clip, trim={0cm 0.6cm 0cm 0cm}, width=0.47\textwidth]{figures/Gravitino_all.png}}
+    \end{picture}
+    \caption{Effect of the LHC exclusion bounds on the otherwise allowed points in the plane spanned by the gravitino mass and reheating temperature.}
+    \label{fig:gavitinores1}
+\end{figure}
+%                                      \         |
+%                                        \       |
+%                                          \     |
+%=======================
 
+After selecting $\sim$26k points satisfying the above constraints,
+%(we have 28k points minus ~2k points which fail BBN)
+ we have used \smo~1.2 to decompose each point signal into all occurring simplified model topologies, which includes production and cascade
+decays of all MSSM supersymmetric particles.
+The LO production cross-sections have been computed using \textsc{Pythia}~8~\cite{Sjostrand:2006za,Sjostrand:2014zea}, while
+NLL cross-sections for $\tilde g \tilde g$, $\tilde g \tilde q$ and $\tilde q \tilde q$  have been obtained using \textsc{NLLFast}~\cite{Beenakker:1996ch,Beenakker:1997ut,Kulesza:2008jb,Kulesza:2009kq,Beenakker:2009ha,Beenakker:2010nq,Beenakker:2011fu}.
+The results from the 8~TeV and 13~TeV HSCP and $R$-hadron searches were then applied in order to constrain the points. Since all the cascade decays terminate at the stau NLSP (at collider scales), MET constraints do not apply. 
+From all the tested points, $\sim 5$k are excluded and $\sim 21$k are allowed, as shown in Fig.~\ref{fig:gavitinores1}.
+For a fixed gravitino mass (below $\sim 200$~GeV), the largest values of $T_{\text{R}}$ are excluded by the LHC constraints. This is due to the fact that the largest reheat temperatures are typically achieved for points with small gluino masses\com{Explain more?}, which in turn contain large production cross-sections at the LHC. As a result these points can be probed by the HSCP and $R$-hadron searches. We see, however, that the largest values of $T_{\text{R}}$ ($\simeq 10^9$~GeV) obtained in the scan
+are still allowed by the LHC constraints obtained with \smo.
+
+
+In order to discuss which searches and topologies are relevant for testing the gravitino scenario, we show in Fig.~\ref{fig:gavitinores2} a histogram for the number of excluded points as a function of the gluino mass. 
+In the left panel the number of excluded points is grouped according to which is the most constraining type of signature. The stacked histogram shows that the bulk of the points are excluded by topologies containing HSCP signatures, as expected.
+Nonetheless a significant fraction of points at low $m_{\tilde g}$ are excluded by $R$-hadron constrains for long-lived gluinos. These points typically have heavy squarks, resulting in suppressed 3-body or 4-body gluino decays. In a similar way, points with light squarks and heavy gauginos and higgsinos lead to long-lived squarks which can also be constrained by the $R$-hadron searches, as shown by the orange histogram.
+In order to illustrate the constraining power of combining results for multiple simplified model topologies, we also display (dark blue histogram) the distribution of excluded points obtained using only the CMS limits for pair production of long-lived staus, gluinos and squarks.
+As it can be seen, the number of excluded points in this case ($\sim200$) is drastically reduced when compared to the one obtained with all the topologies included in \smo.
+
+
+We point out, however, that the constraining power of \smo\ is still limited by the number of simplified model results contained in its database. The points from the pMSSM scan performed here
+display a large variety of topologies and many of them do not fall within the 8 HSCP or the 2 $R$-hadron topologies included in the database.
+However \smo\ can also be used to identify the most relevant missing topologies~\cite{Kraml:2013mwa,Ambrogi:2017lov,Ambrogi:2017neo}.
+In the right panel of Fig.~\ref{fig:gavitinores2}
+we show the non-excluded points with a total SUSY production cross-section (at 13~TeV) larger than 5~fb. Due to their sizeable cross-section, such points have a potential for being excluded by the HSCP or $R$-hadron searches. The stacked histogram shows the distribution of non-excluded points as a function of the gluino mass grouped according to the missing topology with largest weight (cross-section times branching ratio). 
+Most of the points have  $m_{\tilde g} < 1.7$~TeV, since this ensures $\sigma(\tilde g \tilde g) \gtrsim 5$~fb.
+The almost flat distribution at large $m_{\tilde g}$ corresponds to points with light squarks in the spectrum, thus also resulting in large total cross-sections.
+We see that the missing topology which occurs more often in Fig.~\ref{fig:gavitinores2} (light blue histogram) corresponds to pair production of BSM particles, which then go through 4-body decays to the HSCP. This topology is mostly generated by points with very light gluinos, which then decay directly to the $\tilde{\tau}$ through 4-body decays.
+Furthermore, we see that topologies with 1-step decays to $R$-hadrons (green and dark red histograms) can also be potentially powerful when constraining this scenario. These topologies often appear in points with light quarks (gluinos) which decay to long-lived gluinos (quarks).
+
+
+
+%=======================
+%    \                                           |
+%      \                                         |
+%        \                                       |
+\begin{figure*}[h]
+    \centering
+    \setlength{\unitlength}{1\textwidth}
+    \begin{picture}(0.96,0.37)
+    \put(0.0,-0.00){\includegraphics[clip, trim={0cm 0.1cm 0cm 0cm}, scale=0.5]{figures/Gravitino_txnames.png}}
+    \put(0.5,0.0){\includegraphics[clip, trim={0cm 0.1cm 0cm 0cm}, scale=0.5]{figures/Gravitino_missedTopos_nonexcluded.png}}
+    \end{picture}
+    \caption{Left panel: Number of excluded points as a function of the gluino mass. The color indicates the most constraining type of signature. The solid blue histogram displays the number of points excluded when imposing only the CMS limits on the direct pair production of HSCPs and $R$-hadrons.
+        Right panel: Number of non-excluded points with a total SUSY production cross-section of more than 5\,fb at 13~TeV. The color indicates the simplified model topology with largest weight (cross-section times branching ratio).}
+    \label{fig:gavitinores2}
+\end{figure*}
+%                                      \         |
+%                                        \       |
+%                                          \     |
+%=======================
 
 
 
@@ -709,8 +645,7 @@ The result is shown in Fig.~\ref{fig:gavitinores1}. \com{Discuss. Missing topolo
 \section{Conclusion}\label{sec:summary} 
 %===================================================================
 
-In this work we announced \smo~1.2 which is capable to test BSM models 
-that contain non-neutral long-lived particles. We implemented HSCP and $R$-hadron
+In this work we have applied \smo~1.2 to constrain two new physics scenarios containing long-lived particles. This latest \smo version is capable to test BSM models that contain non-neutral long-lived BSM particles. We have implemented HSCP and $R$-hadron
 searches at the 8 and 13\,TeV LHC\@. We discuss to benchmark scenarios in order to
 illustrate its capabilities, the IDM and a gravitino dark matter scenario.
 
@@ -720,10 +655,12 @@ illustrate its capabilities, the IDM and a gravitino dark matter scenario.
 \section*{Acknowledgements}
 %----------------------------------------------------------------------------------------------------------------
 
-We would like to thank Nishita Desai, Suchita Kulkarni, Sabine Kraml, Wolfgang Waltenberger \com{if not authors} ,... for very helpful discussions.
+We would like to thank Nishita Desai, Suchita Kulkarni and Wolfgang Waltenberger for very helpful discussions.
 
 This work is supported by the German Research Foundation DFG through the 
-research unit ``New physics at the LHC''. 
+research unit ``New physics at the LHC''. A.L. is supported by the Sao Paulo Research Foundation (FAPESP), projects 2015/20570-1
+and 2016/50338-6. \com{S. Kraml is...}
+
 
 
 
@@ -747,7 +684,7 @@ research unit ``New physics at the LHC''.
 \put(0.5,0.0){\includegraphics[clip, trim={0.1cm 0.4cm 0cm 0cm}, width=0.46\textwidth]{figures/ULratio_CMS-PAS-EXO-16-036_stau.png}}
 \end{picture}
 \caption{Validation of the 8\,TeV (left panel) and 13\,TeV (right panel) CMS analysis for direct production of staus.
-The red and blue dashed curves show the respective cross section upper limits from CMS and from our recast.
+The red and blue dashed curves show the respective cross-section upper limits from CMS and from our recast.
 }
 \label{fig:vali}
 \end{figure*}
@@ -776,52 +713,54 @@ with
 \end{split}
 \end{equation}
 For one HSCP candidate in an event the formula holds with $P_\text{on/off}(\vec{k}_2^i)=0$.
-The left panel of figure~\ref{fig:vali} shows the comparison of the upper cross section limits from \smo\ with the
-ones from~\cite{Khachatryan:2015lla} for direct pair production of staus. The difference is below
-5\%, compatible with Monte Carlo errors.
+
+
+Using the efficiencies computed using \ref{eq:signaleff} for the direct pair production of staus and the observed and expected number of background events (along with its error) from Ref.\cite{Khachatryan:2015lla}
+we obtain upper limits for the stau cross-section as a function of the stau mass. These can then be directly compared to the CMS values presented in Ref.\cite{Khachatryan:2015lla}. 
+The left panel of figure~\ref{fig:vali} shows the CMS and our results for the cross-section upper limits as well as their ratio (lower frame). As we can see, the difference is always below 5\% and compatible with Monte Carlo errors. Hence we expect that recasting uncertainties for the efficiencies computed with the above method and included in the \smo\ database should
+only be of a few percent.
 
 
 
-For the respective 13\,TeV analysis~\cite{CMS-PAS-EXO-16-036} such a recast has not been
-provided. However, the search criteria of the 8 and 13\,TeV analysis are very similar. The
-two analyses only differ in a slightly stronger cut on the ionization loss and time-of-flight both effectively amounting
-to a slightly stronger cut on the velocity in the latter analysis.\footnote{The effect of slightly stronger cut on $p_\text{T}$~\cite{CMS-PAS-EXO-16-036} is found to be negligible for masses of a few hundred GeV.}
-Hence, the 8\,TeV 
-signature efficiencies may hold for the 13\,TeV to some degree of approximation. Reference~\cite{Brooijmans:2018xbu}
+For the respective 13\,TeV analysis~\cite{CMS-PAS-EXO-16-036}, however, such a recast has not yet been provided. Nonetheless, since the trigger and selection criteria of the 8 and 13\,TeV analyses are very similar, we 
+expect that the signal efficiencies from the 8~TeV search do not
+differ drastically from the 13~TeV ones.
+The two analyses only differ in a slightly stronger cut on the ionization loss and time-of-flight, which effectively amounts
+to a slightly stronger cut on the HSCP velocity in the latter analysis.\footnote{The effect of slightly stronger cut on $p_\text{T}$~\cite{CMS-PAS-EXO-16-036} is found to be negligible for masses of a few hundred GeV.}
+Ref.~\cite{Brooijmans:2018xbu}
 reported an attempt to model the 13\,TeV signature efficiencies by multiplying the 8\,TeV ones with
 a velocity dependent correction function fitted in order to resemble the signal efficiencies reported in~\cite{CMS-PAS-EXO-16-036}.
-On top of the slight reduction of the signature efficiencies for high velocities this study revealed a better performance of the CMS detector in the region of low velocities leading to a larger signal efficiencies
-for large HSCP masses. This latter feature could, however, not be described by a universal velocity dependent correction function for direct pair production and inclusive production. It
-needs further insights into the changes of the detector between run 1 and run 2 that are not provided outside the collaboration. Here, we hence
-follow a conservative approach taking into account the reduction of the efficiency due to the slightly
+On top of the slight reduction of the signature efficiencies for high velocities this study revealed a better performance of the CMS detector in the region of low velocities leading to larger signal efficiencies
+for large HSCP masses. This latter feature could, however, not be described by a universal velocity dependent correction function for direct pair production and inclusive production. In order for a proper understanding of the differences between Runs 1 and 2, further information (which is not publicly available) is needed.
+Therefore we choose to follow a conservative approach taking into account the reduction in the efficiency due to the slightly
 stronger cuts on the velocity of the HSCP candidate. 
-We model this by multiplying $P_\text{off}(\vec{k})$ with a correction function that is assumed to depend only on $\beta$:
+We model this by multiplying $P_\text{off}(\vec{k})$ with a correction function which is assumed to depend only on $\beta$:
 \begin{equation}
 f_{(a,b)}^\text{corr}(\beta) = \left(1+\E^{a (\beta-b)}\right)^{-1}\le1
 \end{equation}
 We determine the parameters $a,b$ in a 
-global fit to the signal efficiencies for the pair production and inclusive production model reported in~\cite{CMS-PAS-EXO-16-036}. 
-To this end we define a $\chi^2$ by
+global fit to the signal efficiencies for the pair production and inclusive production model reported in Ref.~\cite{CMS-PAS-EXO-16-036}. 
+To this end we define the $\chi^2$ function:
 \begin{equation}
 \label{eq:chi2}
 \chi^2 = \sum_m \frac{\left(({\cal A}\epsilon)^m_{(a,b)} - ({\cal A}\epsilon)^m_\text{CMS}\right)^2}{\sigma_{{\cal A}\epsilon}^2}\,,
 \end{equation}
 where $({\cal A}\epsilon)^m_{(a,b)}$ is the signal efficiency for a mass point $m$ of the considered model
 using the signature efficiencies with the correction function $f_{(a,b)}^\text{corr}$ and $({\cal A}\epsilon)^m_\text{CMS}$ is the 
-respective signal efficiency reported in~\cite{CMS-PAS-EXO-16-036}. The
+respective signal efficiency reported by CMS in Ref.~\cite{CMS-PAS-EXO-16-036}. The
 characteristic size of the uncertainty, $\sigma_{\!{\cal A}\epsilon}$, is (arbitrarily) set to $0.02$, which roughly
 reflects the precision of the recasting we aim at.
 We minimize the $\chi^2$ using \textsc{Multinest}~\cite{Feroz:2008xx,Feroz:2013hea} 
-to explore the parameter space. The fit turns out to prefer a very sharp cut in $\beta$ resembling 
-an approximate Heaviside step function for which the value of 
-$a$ is not constrained beyond being larger than $150$. 
-The best-fit parameters are $a\simeq 500 $, $b=0.807$. This result was obtained by choosing all 
-six mass points for both the direct pair production and inclusive production model. However, it is not sensitive
-to the exact set of model points used in the fit, in particular we get very similar results when using one or the other model only. 
-The corresponding signal efficiencies
-for direct production of staus is shown in the right panel of Fig.~\ref{fig:vali}.
-Below a TeV the deviations are within 20\% while for large HSCP masses the 
-recasting becomes significantly conservative due to the above mentioned effects.
+%to explore the parameter space. The fit turns out to prefer a very sharp cut in $\beta$ resembling 
+%an approximate Heaviside step function for which the value of 
+%$a$ is not constrained beyond being larger than $150$. 
+and obtain the best-fit parameters: $a\simeq 500 $ and $b=0.807$. This fit was obtained using all the 12 benchmark points (6 for direct stau production and 6 for inclusive production) considered in Ref.\cite{CMS-PAS-EXO-16-036} and for which 
+signal efficiencies were reported.
+However, we have verified that very similar results are obtained when using only a subset of the benchmark points.
+Once again we compare the upper limits for the total stau direct production cross-section obtained using our recast procedure and the ones reported by CMS. The comparison is shown by the right panel of Fig.~\ref{fig:vali},
+where see that, despite having a worse agreement than the 8~TeV results,
+the 13~TeV upper limits are within 20\% while for large range of stau masses. Only for $m_{\tilde \tau} \gtrsim 1.2$~TeV the 
+recasting significantly diverges from the official values. We point out, however, that the results are still conservative due to the above mentioned effects.
 
 
 
@@ -864,7 +803,7 @@ recasting becomes significantly conservative due to the above mentioned effects.
 \put(0.0,0.0){\includegraphics[clip, trim={6.15cm 3.5cm 5.5cm 3cm}, width=0.505\textwidth]{figures/plot_gammabeta_direct.pdf}}
 \put(0.505,0.0){\includegraphics[clip, trim={6.15cm 3.5cm 5.5cm 3cm}, width=0.505\textwidth]{figures/plot_gammabeta_1step.pdf}}
 \end{picture}
-\caption{The effective characteristic travel length, $\langle\ell_\text{outer}/\gamma\beta\rangle_\text{eff}$ (see text for details) in the parameter plane spanned by the HSCP mass, $m_\text{HSCP}$, and its proper decay length, $c\tau$ for direct production (left panel) and for the 1-step decay topology where we choose $m_\text{prod}=2\,$TeV for the mass of the produced mother particle (right panel). The solid and dashed curves denote the 95\% CL exclusion for the event-based computation of $\ell/\gamma\beta$ and for the approximation choosing $\langle\ell_\text{outer}/\gamma\beta\rangle_\text{eff}=7\,$m (see text for details). For the direct production we choose the cross section Drell-Yan stau pair production, while the cross section for 1-step decay corresponds to (degenerate) squark production with $m_{\tilde q}=m_{\tilde g}$.
+\caption{The effective characteristic travel length, $\langle\ell_\text{outer}/\gamma\beta\rangle_\text{eff}$ (see text for details) in the parameter plane spanned by the HSCP mass, $m_\text{HSCP}$, and its proper decay length, $c\tau$ for direct production (left panel) and for the 1-step decay topology where we choose $m_\text{prod}=2\,$TeV for the mass of the produced mother particle (right panel). The solid and dashed curves denote the 95\% CL exclusion for the event-based computation of $\ell/\gamma\beta$ and for the approximation choosing $\langle\ell_\text{outer}/\gamma\beta\rangle_\text{eff}=7\,$m (see text for details). For the direct production we choose the cross-section Drell-Yan stau pair production, while the cross-section for 1-step decay corresponds to (degenerate) squark production with $m_{\tilde q}=m_{\tilde g}$.
 }
 \label{fig:leff}
 \end{figure*}
@@ -875,106 +814,53 @@ recasting becomes significantly conservative due to the above mentioned effects.
 
 Although the HSCP searches considered here are aimed for detector-stable particles
 they can also constrain models with intermediate decay length of the order of the detector size
-where only a certain fraction of particles decay after traversing the entire sensitive detector and hence
-${\cal F}_\mathrm{long}$ may be significantly smaller than one. In this case 
-the resulting signal efficiency becomes very sensitive to the choice of $\langle\ell_\text{outer}/\gamma\beta\rangle_\text{eff}$.
-We shall therefore investigate the validity of the choice made in Sec.~\ref{sec:impl}
-for a representative set of different models. Our aim is to choose
-%$\langle\ell_\text{outer}/\gamma\beta\rangle_\text{eff}=7\,$m
-$\langle\ell_\text{outer}/\gamma\beta\rangle_\text{eff}$ such that the corresponding
-efficiencies (and hence cross section upper limits) match the ones from a full simulation 
-in which we take into account the probabilities of a particle to decay outside the detector on an
-event-by-event basis using
+where only a certain fraction of particles decay after traversing the entire sensitive detector. In this case the fraction of long-lived particles, ${\cal F}_\mathrm{long}$, may be significantly smaller than one and the resulting signal efficiency becomes sensitive to value chosen for $L_{eff} \equiv \langle\ell_\text{outer}/\gamma\beta\rangle_\text{eff}$ (see eq.\ref{eq:Flong}).
+Here we discuss in detail what are the expected values for $L_{eff}$ and justify our choice, $L_{eff}  = 7$~m, used in the results presented in Sec.\ref{sec:physapp} and implemented in \smo~1.2. 
+
+
+The precise value of ${\cal F}_\mathrm{long}$ (and hence $L_{eff}$) 
+actually depends on the input model and experimental analysis and
+requires a full Monte Carlo simulation for each model point in order to determine the boost distribution of the HSCP particles. However, since \smo\ aims for a fast (although approximate)
+computation of LHC constraints for a large variety of BSM models, our
+goal is to determine an average value for $L_{eff}$ which can approximately reproduce the correct value of ${\cal F}_\mathrm{long}$ obtained from a full simulation.
+Before we can justify this approximation, we must first discuss how to obtain  ${\cal F}_\mathrm{long}$ from the full simulation for a given input model. 
+
+
+We first define the probability for a (metastable) particle with momentum $\vec{k}$ to decay outside the detector in a given event:
 \begin{equation}
+\label{eq:flongevt}
 F_\text{long}(\vec{k}) = \exp\left(-\frac{\ell_\text{outer}(|\eta|)}{\gamma \beta }\frac{1}{c\tau}\right)\,.
 \end{equation}
 Here $\gamma = (1-\beta^2)^{-1/2}$ and $\ell_\text{outer}(|\eta|)$ is the travel length
 through the CMS detector which we approximate by considering a cylindrical volume with radius of 7.4\,m and length of 10.8\,m.
-  
-
-
-
-
-We compute the signal efficiency with eq.~\eqref{eq:signaleff} but instead of eq.~\eqref{eq:pevent} using 
+Using now the off- and online efficiencies ($P_{\text{on}}$ and $P_{\text{off}}$) discussed in \ref{app:rec13}, we can
+extend the signal efficiency calculation from
+eq.~\eqref{eq:signaleff} to the case of finite lifetimes using:
 \begin{equation}
 \begin{split}
 \label{eq:Pevfull}
 {\cal P}^{\,i}_\text{event} = &\;
 F_\mathrm{long}(\vec{k}_1^i)  P_{\text{on}}(\vec{k}_1^i) P_{\text{off}}(\vec{k}_1^i) \big(1- F_\mathrm{long}(\vec{k}_2^i)\big)\\
 &\!\!\!+F_\mathrm{long}(\vec{k}_2^i)  P_{\text{on}}(\vec{k}_2^i) P_{\text{off}}(\vec{k}_2^i) \big(1- F_\mathrm{long}(\vec{k}_1^i)\big)\\
-&\!\!\!+ F_\mathrm{long}(\vec{k}_1^i) F_\mathrm{long}(\vec{k}_2^i) {\cal P}^{\,i}_\text{on} {\cal P}^{\,i}_\text{off}\,.
+&\!\!\!+ F_\mathrm{long}(\vec{k}_1^i) F_\mathrm{long}(\vec{k}_2^i) {\cal P}^{\,i}_\text{on} {\cal P}^{\,i}_\text{off},
 \end{split}
 \end{equation}
-%with
-%\begin{equation}
-%F_\text{prompt} (\vec{k})= 1-\exp\left(-\frac{\ell_\text{inner}(\eta)}{\gamma \beta} \frac{1}{c\tau}\right)
-%\end{equation}
-%and
-%\begin{equation}
-%F_\text{long}(\vec{k}) = \exp\left(-\frac{\ell_\text{outer}(\eta)}{\gamma \beta }\frac{1}{c\tau}\right)\,.
-%\end{equation}
-
-%...
-%
-%...
-
-%
-%In general, the weights $\mathcal{F}_\text{long}$ and $\mathcal{F}_\text{prompt}$
-%do not only depend on the decay length $c\tau$ of the respective particle, but also
-%on the boosts, $\beta\gamma$ and -- considering the detector geometry -- on the pseudorapidities, $\eta$,
-%of the particles. For a single particle in an event the probability to decay promptly or appear long-lived is
-%\begin{equation}
-%F_\text{prompt} = 1-\exp\left(-\frac{\ell_\text{inner}(\eta)}{\gamma \beta} \frac{1}{c\tau}\right)
-%\end{equation}
-%or 
-%\begin{equation}
-%F_\text{long} = \exp\left(-\frac{\ell_\text{outer}(\eta)}{\gamma \beta }\frac{1}{c\tau}\right)\,,
-%\end{equation}
-%respectively, where $\gamma = (1-\beta^2)^{-1/2}$ and $\ell_{\text{inner}}, \ell_\text{outer}$ are 
-%are governed by the detector size and experimental setups. 
-%
-%For a given parameter point for $\mathcal{F}_\text{long/prompt}$ an analogous formula
-%holds but with an effective characteristic travel length, $\langle\ell_\text{outer}/\gamma\beta\rangle_\text{eff}$.
-%However, in the decomposition we aim for using a universal (conservative) $\langle\ell_\text{outer}/\gamma\beta\rangle_\text{eff}$.
-%This is indeed possible. In order to determine such a value we computed the \com{have to introduce $P_i$}
-%efficiencies for various topologies and parameter points directly via
-%\begin{equation}
-%({\cal A}\epsilon) = \frac{1}{N}\sum_{i=1}^N P^{\,i}_\text{tot} 
-%\end{equation}
-%where the sum runs over all $N$ events and
-%\begin{equation}
-%\begin{split}
-%{\cal P}^{\,i}_\text{event} = &\;
-%f_\mathrm{long}(\vec{k}_1^i)  P_{\text{on}}(\vec{k}_1^i) P_{\text{off}}(\vec{k}_1^i) \big(1- f_\mathrm{long}(\vec{k}_2^i)\big)\\
-%&\!+f_\mathrm{long}(\vec{k}_2^i)  P_{\text{on}}(\vec{k}_2^i) P_{\text{off}}(\vec{k}_2^i) \big(1- f_\mathrm{long}(\vec{k}_1^i)\big)\\
-%&\!+ f_\mathrm{long}(\vec{k}_1^i) f_\mathrm{long}(\vec{k}_2^i) {\cal P}^{\,i}_\text{on} {\cal P}^{\,i}_\text{off}\,,
-%\end{split}
-%\end{equation}
-%with
-%\begin{equation}
-%\begin{split}
-%P^{\,i,(2)}_\text{on/off} = &\;P_\text{on/off}(\vec{k}_1^i) + P_\text{on/off}(\vec{k}_2^i)\\
-%& - P_\text{on/off}(\vec{k}_1^i)\times P_\text{on/off}(\vec{k}_2^i)\,.
-%\end{split}
-%\end{equation}
-%We determine $[\ell/\gamma\beta]_\text{eff}^\text{long}$ such as to match the corresponding result using
-%Eq.~\eqref{eq:weights}.
+where $F_\text{long}(\vec{k}_j^i)$ is the decay probability from eq.\ref{eq:flongevt} for the $j$-th particle in the $i$-th event.
 
 
 
+Using eqs.\ref{eq:Pevfull} and \ref{eq:signaleff} we can then compute the total signal efficiency for a given input model taking into account the correct finite lifetime suppression factor. This factor can then be compared to the efficiency computed with \smo\ using ${\cal F}_\mathrm{long}$
+to extract the precise value for $L_{eff}$ given a specific input model.
+In Figure~\ref{fig:leff} we consider the direct production of staus (left panel) and direct production of squarks and gluinos followed by a 1-step decay to staus at the 13~TeV LHC.
+In both models we vary the stau mass and lifetime, with $m_{\tilde g} = m_{\tilde q} = 2$~TeV for the second model.
+The color of each point in the plane
+shows the correct value for $L_{eff} = \langle\ell_\text{outer}/\gamma\beta\rangle_\text{eff}$ 
+which should be used in \smo\ in order for the \smo\ signal efficiencies to exactly match the full simulation values.
+As we can see, $L_{eff}$ does not vary significantly, spanning values within the interval $\sim$4-8~m. Therefore, in order to remain conservative 
+and avoid (significantly) underestimating the signal efficiency we choose $L_{eff} = 7~m$ (or $l_\text{outer} = 10$~m and $\gamma\beta = 1.3$). 
+Using this choice we show in Fig.~\ref{fig:leff} the corresponding exclusion curves obtained with \smo\ as dashed lines. We also display the corresponding curves obtained using the full simulation. 
+Although the \smo\ curves are conservative, we see that they agree quite well with the full simulation in most of the parameter space. We therefore concluded that using a fixed $L_{eff} = 7$~m value is a valid approximation.
 
-
-Figure~\ref{fig:leff} shows results for $\langle\ell_\text{outer}/\gamma\beta\rangle_\text{eff}$ that -- using eq.\,\eqref{eq:weights}--\eqref{eq:Flong} --
-yields the same efficiency as performing the full simulation using eq.~\eqref{eq:Pevfull}. We exemplary display 
-direct production of staus (left panel) and a 1-step decay topology (right panel). The 
-choice $\langle\ell_\text{outer}/\gamma\beta\rangle_\text{eff}=7\,$m
-which provides (mostly) conservative results such that we do not
-(significantly) overestimate the signal efficiency and hence the constraining power.
-This can be seen looking at the corresponding 
-95\% CL upper limits shown for the event-based computation of $\ell_\text{outer}/\gamma\beta$ and this approximation.
-\com{used NLLfast for xs}
-
-\com{Maybe say at some point that in~\cite{Heisig:2015yla} $\ell_\text{outer}/\gamma\beta = 10/0.6\,$m was used.}
 
 %\com{JH: I'm thinking if it's a good idea to introduce the $f$ (event based quantity) 
 %to distinguish it from $\mathcal{F}$ which is some kind of averaged weight for 
@@ -1020,9 +906,9 @@ This can be seen looking at the corresponding
 %%%%%%%%%%%
 
 
-\addcontentsline{toc}{section}{References}
-\bibliographystyle{utphys.bst}
-\bibliography{SModelS_HSCP_ref}
+%\addcontentsline{toc}{section}{References}
+%\bibliographystyle{utphys.bst}
+%\bibliography{SModelS_HSCP_ref}
 
 \end{document}
 
