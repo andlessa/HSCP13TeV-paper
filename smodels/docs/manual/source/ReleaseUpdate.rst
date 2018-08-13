@@ -1,4 +1,4 @@
-.. index:: What's New in version |version|
+.. index:: What's New
 
 .. |element| replace:: :ref:`element <element>`
 .. |elements| replace:: :ref:`elements <element>`
@@ -33,28 +33,38 @@
 
 
 
-What's New in Version 1.1
-=========================
+What's New
+==========
 Since the publication of SModelS v1.0 in December 2014, the code base
-has undergone significant structural changes. Version 1.1 comes
-with many new features. The major novelties of this release are
-as follows:
+has undergone significant structural changes. 
+The major novelties of this release are as follows:
+
+New in Version 1.2.0:
+^^^^^^^^^^^^^^^^^^^^^
+
+  * Decomposition and experimental results can include
+    non-MET signatures :ref:`final states <final stateOdd>` (e.g. heavy stable charged particles or HSCP)
+  * Added :ref:`lifetime reweighting <lifetimeWeight>` at |decomposition| for meta-stable particles
+  * Added :ref:`finalState property <final stateOdd>` for Elements
+  * Introduction of :ref:`inclusive simplified models <inclusiveSMS>`
+  * Inclusion of HSCP results in the database
 
 New in Version 1.1.3:
 ^^^^^^^^^^^^^^^^^^^^^
 
-  * Support for :ref:`covariance matrices <combineSRs>` and combination of signal regions (see **options:combineSR** in |parameters|)
-  * New plotting tool added to :ref:`smodelsTools <smodelsTools>` (interactive-plots)
-  * Path to particles.py can now be specified in parameters.ini file (see **particles:model** in |parameters|)
-  * Wildcards allowed when selecting analyses, datasets, txnames (see example 
-  * Option to show individual contribution from topologies to total theory prediction (see **python-printer:addTxWeights** in |parameters|)
-  * URLs are allowed as database paths (see **database:path** in |parameters|)
+  * Support for :ref:`covariance matrices <combineSRs>` and combination of signal regions (see :ref:`combineSR <parameterFileCombineSRs>` in |parameters|)
+  * New plotting tool added to smodelsTools (see :ref:`Interactive Plots Maker <interactivePlots>`)
+  * Path to particles.py can now be specified in parameters.ini file (see :ref:`model <parameterFileModel>` in |parameters|)
+  * Wildcards allowed when selecting analyses, datasets, txnames (see :ref:`analyses <parameterFileAnalyses>`, :ref:`txnames <parameterFileTxnames>` and :ref:`dataselector <parameterFileDataselector>`  in |parameters|) 
+  * Option to show individual contribution from topologies to total theory prediction (see :ref:`addTxWeights <parameterFileAddTxWeights>` in |parameters|)
+  * URLs are allowed as database paths (see :ref:`path <parameterFilePath>` in |parameters|)
   * Python default changed from python2 to python3
   * Fixed lastUpdate bug, now giving correct date 
   * Changes in pickling (e.g. subpickling, removing redundant zeroes)
   * Added fixpermissions to smodelsTools.py, for system-wide installs (see :ref:`Files Permissions Fixer <permissionsFixer>`)
   * Fixed small issue with pair production of even particles
   * Moved the :ref:`code documentation <CodeDocs>` to the manual
+  * Added :ref:`option for installing <phenoInstallation>` within the source folder
 
 
 New in Version 1.1.2:

@@ -10,6 +10,9 @@
 
 import sys
 sys.path.insert(0,"../")
+from smodels.tools.smodelsLogging import setLogLevel
+setLogLevel ( "error" )
+
 import unittest
 if sys.version[0]=="2":
     import commands as CMD
@@ -43,14 +46,20 @@ class CppTest(unittest.TestCase):
             l = f.readlines()
             lb=l[skip:]
             b = [ x.strip() for x in lb ]
+        if len(a) != len(b):
+            print ( "test failed. writing output to debug.txt" )
+            f=open("debug.txt","w")
+            for i in b:
+                f.write ( i+ "\n" )
+            f.close()
         self.assertEqual ( len(a), len(b) )
         for x,y in zip(a,b):
             self.assertEqual ( x, y )
 
     def testRun(self):
         self.compile()
+        #self.writeOutput()
         self.runExample()
-        # self.writeOutput()
 
 if __name__ == "__main__":
     unittest.main()
