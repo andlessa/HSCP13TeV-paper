@@ -13,7 +13,7 @@ import sys
 from setuptools import setup, Extension
 from setuptools.command.install import install
 sys.path.insert ( 0, "./" )
-from smodels.installation import version, authors, requirements
+from smodels.installation import version, authors, requirements, resolve_dependencies, fixpermissions
 import subprocess
 
 class OverrideInstall(install):
@@ -22,6 +22,13 @@ class OverrideInstall(install):
         #uid, gid = 0, 0
         install.run(self) # calling install.run(self) insures that everything 
                 # that happened previously still happens, 
+        install_as_user = True
+        try:
+            import getpass
+            if getpass.getuser() == "root":
+                install_as_user = False
+        except Exception as e:
+            pass
         enableStupidMacFix=False
         if enableStupidMacFix:
             if "Apple" in sys.version:
@@ -44,6 +51,10 @@ class OverrideInstall(install):
                 # print ("Changing permissions of %s to %s" %
                 #         ( os.path.dirname ( filepath ), oct(mode)))
                 os.chmod( os.path.dirname ( filepath ), mode )
+        if install_as_user: ## FIXME doesnt work for system installs
+            resolve_dependencies( as_user=install_as_user )
+        if not install_as_user:
+            fixpermissions()
 
 def read(fname):
     """
@@ -76,12 +87,13 @@ def dataFiles ():
     """
     ret = []
     ret.append ( ("smodels/", [ "smodels/version", "smodels/COPYING", "smodels/README.rst", "smodels/INSTALLATION.rst" ]) )
-    for directory in ["inputFiles/slha/", "inputFiles/lhe/", "smodels/share/", 
-          "smodels/share/models/",
+    for directory in [ "smodels/share/", "smodels/share/models/",
           "smodels/etc/", "smodels/lib/nllfast/nllfast-1.2/", 
           "smodels/lib/nllfast/nllfast-2.1/", "smodels/lib/nllfast/nllfast-3.1/", 
           "smodels/lib/pythia6/", "smodels/lib/pythia8/" ]:
         ret.append ((directory, listDirectory (directory)))
+    for directory in ["inputFiles/slha/", "inputFiles/lhe/" ]:
+        ret.append (( "smodels/"+directory, listDirectory (directory)))
 
     return ret
 
