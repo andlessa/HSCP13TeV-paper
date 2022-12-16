@@ -18,8 +18,7 @@ class SlhaTest(unittest.TestCase):
 
         filename = "./testFiles/slha/gluino_squarks.slha"
         st=slhaChecks.SlhaStatus(filename)
-        self.assertEquals ( st.status, (1, 'Input file ok') )
+        self.assertEqual ( st.status, (1, 'Input file ok') )
         
-
 if __name__ == "__main__":
     unittest.main()

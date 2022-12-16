@@ -14,6 +14,7 @@ from smodels.experiment import metaObj
 from smodels.experiment.exceptions import SModelSExperimentError
 from smodels.tools.smodelsLogging import logger
 from smodels.tools.stringTools import cleanWalk
+from smodels.theory.auxiliaryFunctions import getAttributesFrom,getValuesForObj
 
 try:
     import cPickle as serializer
@@ -24,20 +25,18 @@ class ExpResult(object):
     """
     Object  containing the information and data corresponding to an
     experimental result (experimental conference note or publication).
-
-    :ivar path: path to the experimental result folder (i.e. ATLAS-CONF-2013-047)
-    :ivar globalInfo: Info object holding the data in <path>/globalInfo.txt
-    :ivar datasets: List of DataSet objects corresponding to the dataset folders
-                    in <path>
     """
-        
-    def __init__(self, path = None, discard_zeroes = True):
+
+    def __init__(self, path = None, discard_zeroes = True, databaseParticles = None):
         """
-        :param path: Path to the experimental result folder
+        :param path: Path to the experimental result folder, None means 
+                     transient experimental result
         :param discard_zeroes: Discard maps with only zeroes
-        """ 
-        
-        if not path:
+        :param databaseParticles: the model, i.e. the particle content
+        """
+
+        if path in [ None, "<transient>" ]:
+            self.path = "<transient>"
             return
         if not os.path.isdir ( path ):
             raise SModelSExperimentError ( "%s is not a path" % path )
@@ -48,19 +47,24 @@ class ExpResult(object):
             logger.error("globalInfo.txt file not found in " + path)
             raise TypeError
         self.globalInfo = infoObj.Info(os.path.join(path, "globalInfo.txt"))
+        #Add type of experimental result (if not defined)
+        if not hasattr(self.globalInfo,'type'):
+            self.globalInfo.type = 'prompt'
+
         datasets = {}
         folders=[]
         for root, _, files in cleanWalk(path):
             folders.append ( (root, files) )
         folders.sort()
         self.datasets = []
-        hasOrder = hasattr ( self.globalInfo, "datasetOrder" )
+        hasOrder = hasattr(self.globalInfo, "datasetOrder")
         for root, files in folders:
             if 'dataInfo.txt' in files:  # data folder found
                 # Build data set
                 try:
                     dataset = datasetObj.DataSet(root, self.globalInfo,
-                            discard_zeroes = discard_zeroes )
+                            discard_zeroes = discard_zeroes,
+                            databaseParticles = databaseParticles)
                     if hasOrder:
                         datasets[dataset.dataInfo.dataId]=dataset
                     else:
@@ -77,17 +81,16 @@ class ExpResult(object):
             self.datasets.append ( datasets[dsname] )
         if len(self.datasets) != len(dsOrder):
             raise SModelSExperimentError ( "lengths of datasets and datasetOrder mismatch" )
-            
+
 
     def writePickle(self, dbVersion):
         """ write the pickle file """
-        
+
         meta = metaObj.Meta ( self.path, self.discard_zeroes, databaseVersion=dbVersion )
         pclfile = "%s/.%s" % ( self.path, meta.getPickleFileName() )
         logger.debug ( "writing expRes pickle file %s, mtime=%s" % (pclfile, meta.cTime() ) )
         f=open( pclfile, "wb" )
-        ptcl = serializer.HIGHEST_PROTOCOL        
-#         ptcl = 2
+        ptcl = min ( 4, serializer.HIGHEST_PROTOCOL )
         serializer.dump(meta, f, protocol=ptcl)
         serializer.dump(self, f, protocol=ptcl)
         f.close()
@@ -158,14 +161,17 @@ class ExpResult(object):
         Equivalent to:
         self.getDataset ( dataset ).getEfficiencyFor ( txname, mass )
         """
-        
-        dataset = self.getDataset( dataset )
+
+        dataset = self.getDataset(dataset)
         if dataset:
-            return dataset.getEfficiencyFor( txname, mass )
+            return dataset.getEfficiencyFor(txname, mass)
         return None
 
     def hasCovarianceMatrix( self ):
         return hasattr(self.globalInfo, "covariance")
+
+    def hasJsonFile( self ):
+        return hasattr(self.globalInfo, "jsonFiles")
 
 
     """ this feature is not yet ready
@@ -212,58 +218,30 @@ class ExpResult(object):
                         instead.
         :return: upper limit (Unum object)
         """
-        
+
         dataset = self.getDataset(dataID)
         if dataset:
-            upperLimit = dataset.getUpperLimitFor(mass=mass,expected = expected, 
+            upperLimit = dataset.getUpperLimitFor(element=mass,expected = expected,
                                                       txnames = txname,
                                                       compute=compute,alpha=alpha)
             return upperLimit
         else:
-            logger.error("Dataset ID %s not found in experimental result %s" %(dataID,self))     
+            logger.error("Dataset ID %s not found in experimental result %s" %(dataID,self))
             return None
 
 
-    def getValuesFor(self, attribute=None):
+    def getValuesFor(self,attribute):
         """
         Returns a list for the possible values appearing in the ExpResult
         for the required attribute (sqrts,id,constraint,...).
         If there is a single value, returns the value itself.
 
-        :param attribute: name of a field in the database (string). If not
-                          defined it will return a dictionary with all fields
-                          and their respective values
-        :return: list of values or value
+        :param attribute: name of a field in the database (string).
+        :return: list of unique values for the attribute
 
         """
-        fieldDict = list ( self.__dict__.items() )
-        valuesDict = {}
-        while fieldDict:
-            for field, value in fieldDict:
-                if not '<smodels.experiment' in str(value):
-                    if not field in valuesDict:
-                        valuesDict[field] = [value]
-                    else: valuesDict[field].append(value)
-                else:
-                    if isinstance(value, list):
-                        for entry in value:
-                            fieldDict += entry.__dict__.items()
-                    else: fieldDict += value.__dict__.items()
-                fieldDict.remove((field, value))
 
-        # Try to keep only the set of unique values
-        for key, val in valuesDict.items():
-            try:
-                valuesDict[key] = list(set(val))
-            except TypeError:
-                pass
-        if not attribute:
-            return valuesDict
-        elif not attribute in valuesDict.keys():
-            logger.warning("Could not find field %s in %s", attribute, self.path)
-            return False
-        else:
-            return valuesDict[attribute]
+        return getValuesForObj(self,attribute)
 
 
     def getAttributes(self, showPrivate=False):
@@ -275,14 +253,13 @@ class ExpResult(object):
         :return: list of field names (strings)
 
         """
-        fields = self.getValuesFor().keys()
-        fields = list(set(fields))
+
+        attributes = getAttributesFrom(self)
 
         if not showPrivate:
-            for field in fields[:]:
-                if "_" == field[0]:
-                    fields.remove(field)
-        return fields
+            attributes = list(filter(lambda a: a[0] != '_', attributes))
+
+        return attributes
 
 
     def getTxnameWith(self, restrDict={}):
@@ -319,5 +296,3 @@ class ExpResult(object):
         """ experimental results are sorted alphabetically according
         to their description strings """
         return str(self) < str(other)
-
-

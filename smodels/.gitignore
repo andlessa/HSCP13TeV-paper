@@ -50,6 +50,8 @@ docs/manual/source/recipes/ascii_graph_from_lhe.py
 docs/manual/source/recipes/browserExample2.py
 docs/manual/source/recipes/browserExample3.py
 docs/manual/source/recipes/compareUL.py
+docs/manual/source/recipes/runAsLibrary.py
+docs/manual/source/recipes/runWithParameterFile.py
 docs/manual/source/recipes/compute_likelihood.py
 docs/manual/source/recipes/lo_xsecs_from_slha.py
 docs/manual/source/recipes/load_database.py
@@ -65,7 +67,7 @@ test/database/**/*.pcl
 test/tinydb/*.pcl
 test/tinydb/**/*.pcl
 smodels/lib/pythia8/.*.tgz
-smodels/lib/pythia8/pythia822*
+smodels/lib/pythia8/pythia8*
 smodels/lib/pythia8/xml.doc
 docs/manual/source/DatabaseBrowser.rst
 docs/manual/source/LheChecker.rst
@@ -88,3 +90,4 @@ docs/manual/source/tools.rst
 docs/manual/source/images/parameters.ini
 docs/manual/source/images/parameters_default.ini
 docs/manual/source/recipes/.ipynb_checkpoints/
+docs/manual/source/recipes/iplots/

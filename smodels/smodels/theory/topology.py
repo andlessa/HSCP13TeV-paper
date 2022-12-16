@@ -20,19 +20,17 @@ import itertools
 class Topology(object):
     """
     An instance of this class represents a topology.
-    
-    :ivar vertnumb: list with number of vertices in each branch
-    :ivar verparts: list with number of final states in each branch
-    :ivar elementList: list of Element objects with this common topology
     """
+
     def __init__(self, elements=None):
         """
         Constructor.
         If elements is defined, create the topology from it. If elements it is
         a list, all elements must share a common global topology.
-        
+
         :parameter elements: Element object or list of Element objects
         """
+
         self.vertnumb = []
         self.vertparts = []
         self.elementList = []
@@ -48,13 +46,16 @@ class Topology(object):
         """
         Return string with numbers of particles per vertex, e.g.
         [1],[2,1]
-        
+
         :returns: string with number of final states in each branch
         """
         ret = ""
         for p in self.vertparts:
             ret += "%s" % str(p).replace(" ", "")
         return ret
+
+    def __repr__(self):
+        return self.__str__()
 
     def __ne__(self,other):
         return not ( self.__eq__(other) )
@@ -69,35 +70,35 @@ class Topology(object):
     def __cmp__(self,other):
         """
         Compares the topology with other.
-        The comparison is made on number of vertices and then on the 
+        The comparison is made on number of vertices and then on the
         total number of particles coming out of the vertices.
         :param other:  topology to be compared (Topology object)
         :return: -1 if self < other, 0 if self == other, +1, if self > other.
         """
-        
+
         #Check for any permutation of branches:
         for v1 in itertools.permutations(self.vertparts):
-            for v2 in itertools.permutations(other.vertparts):
-                if v1 == v2:
-                    return 0
+            v1 = list(v1)
+            if v1 == other.vertparts:
+                return 0
 
         if sorted(self.vertnumb,reverse=True) != sorted(other.vertnumb,reverse=True):
             comp = sorted(self.vertnumb,reverse=True) > sorted(other.vertnumb,reverse=True)
             if comp: return 1
-            else: return -1  
+            else: return -1
         elif sorted(self.vertparts) != sorted(other.vertparts):
             comp = sorted(self.vertparts) > sorted(other.vertparts)
             if comp: return 1
-            else: return -1 
+            else: return -1
         else:
-            return 0 
+            return 0
 
 
     def checkConsistency(self):
         """
         Check if the all the elements in elementList are
         consistent with the topology (same number of vertices and final states)
-        
+
         :returns: True if all the elements are consistent. Print error message
                   and exits otherwise.
         """
@@ -134,7 +135,7 @@ class Topology(object):
         """
         return self.elementList
 
-    
+
     def addElement(self, newelement):
         """
         Add an Element object to the elementList.
@@ -142,29 +143,29 @@ class Topology(object):
         For all the pre-existing elements, which match the new element, add
         weight. If no pre-existing elements match the new one, add it to the
         list. OBS: newelement MUST ALREADY BE SORTED (see element.sort())
-        
+
         :parameter newelement: element to be added (Element object)
         :returns: True, if the element was added. False, otherwise
         """
 
         # If the topology info has not been set yet, set it using the element
         # info
+
         if not self.vertparts:
             self.vertparts = newelement.getEinfo()["vertparts"]
         if not self.vertnumb:
             self.vertnumb = newelement.getEinfo()["vertnumb"]
 
         #First check if element matches topology structure
-        info = newelement.getEinfo()        
+        info = newelement.getEinfo()
+
         if info != self._getTinfo():
             logger.warning('Element to be added does not match topology')
             return False
-        
-        index = index_bisect(self.elementList,newelement)        
+
+        index = index_bisect(self.elementList,newelement)
         if index != len(self.elementList) and self.elementList[index] == newelement:
-            self.elementList[index].weight.combineWith(newelement.weight)
-            self.elementList[index].combinePIDs(newelement)
-            self.elementList[index].combineMotherElements(newelement)
+            self.elementList[index] += newelement
         else:
             self.elementList.insert(index,newelement)
 
@@ -184,7 +185,7 @@ class Topology(object):
     def getTotalWeight(self):
         """
         Return the sum of all elements weights.
-        
+
         :returns: sum of weights of all elements (XSection object)
         """
         if len(self.elementList) == 0:
@@ -192,7 +193,7 @@ class Topology(object):
 
         sumw = crossSection.XSectionList()
         for element in self.elementList:
-            sumw.combineWith(element.weight)
+            sumw += element.weight
 
         return sumw
 
@@ -200,10 +201,8 @@ class Topology(object):
 class TopologyList(object):
     """
     An instance of this class represents an iterable collection of topologies.
-    
-    :ivar topos: list of topologies (Topology objects)
-    
     """
+    
     def __init__(self, topologies=[]):
         """
         Add topologies sequentially, if provided.
@@ -237,9 +236,12 @@ class TopologyList(object):
             s += str(topo) + "\n"
         return s
 
-    def insert(self,index,topo):        
+    def __repr__(self):
+        return self.__str__()
+
+    def insert(self,index,topo):
         self.topos.insert(index,topo)
-        
+
 
     def addList(self, topoList):
         """
@@ -264,23 +266,23 @@ class TopologyList(object):
         """
         Uses bisect to find the index where of topo in the list.
         If topo does not appear in the list, returns None.
-        
+
         :param topo: Topology object
-        :return: position of topo in the list. If topo does not    
+        :return: position of topo in the list. If topo does not
                 appear in the list, return None.
         """
 
         i = index_bisect(self, topo)
         if i != len(self) and self[i] == topo:
             return i
-        
+
         return None
-    
+
 
     def hasTopology(self,topo):
         """
         Checks if topo appears in any of the topologies in the list.
-        
+
         :param topo: Topology object
         :return: True if topo appears in the list, False otherwise.
         """
@@ -288,10 +290,10 @@ class TopologyList(object):
         for t in self:
             if t == topo:
                 return True
-        
-        return False    
 
-    
+        return False
+
+
     def add(self, newTopology):
         """
         Check if elements in newTopology matches an entry in self.topos.
@@ -301,9 +303,9 @@ class TopologyList(object):
         new topology and all its elements.
 
         :param newTopology: Topology object
-        
+
         """
-        
+
         index = index_bisect(self, newTopology)
         if index != len(self) and self[index] == newTopology:
             for newelement in newTopology.elementList:
@@ -318,11 +320,11 @@ class TopologyList(object):
         If the element topology does not match any of the topologies in
         the list, create a new topology and insert it in the list.
         If the element topology already exists, add it to the respective
-        topology.        
+        topology.
         :parameter newelement: element to be added (Element object)
         :returns: True, if the element was added. False, otherwise
         """
-        
+
         #First create a dummy topology from the element to check
         #if this topology already exists in the list:
         elInfo = newelement.getEinfo()
@@ -330,7 +332,7 @@ class TopologyList(object):
         topoDummy.elementList.append(newelement)
         topoDummy.vertnumb = elInfo["vertnumb"]
         topoDummy.vertparts = elInfo["vertparts"]
-        
+
         index = index_bisect(self,topoDummy)
         if index != len(self) and self.topos[index] == topoDummy:
             self.topos[index].addElement(newelement)
@@ -347,7 +349,7 @@ class TopologyList(object):
         for topo in self:
             topoweight = topo.getTotalWeight()
             if topoweight:
-                sumw.combineWith(topoweight)
+                sumw += topoweight
         return sumw
 
 
@@ -360,20 +362,20 @@ class TopologyList(object):
         for top in self.topos:
             elements.extend(top.elementList)
         return elements
-    
-    def compressElements(self,doCompress,doInvisible,minmassgap):        
+
+    def compressElements(self,doCompress,doInvisible,minmassgap):
         """
-        Compress all elements in the list and included the compressed
+        Compress all elements in the list and include the compressed
         elements in the topology list.
-        
+
         :parameter doCompress: if True, perform mass compression
         :parameter doInvisible: if True, perform invisible compression
-        :parameter minmassgap: value (in GeV) of the maximum 
+        :parameter minmassgap: value (in GeV) of the maximum
                                mass difference for compression
                                (if mass difference < minmassgap, perform mass compression)
 
         """
-        
+
         for el in self.getElements():
             newElements = el.compressElement(doCompress,doInvisible,minmassgap)
             if not newElements:
