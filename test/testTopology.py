@@ -1,147 +1,112 @@
 #!/usr/bin/env python3
- 
-"""
-.. module:: testTopoComb
-   :synopsis: Tests the combinatin of topologies, for combined results
 
-.. moduleauthor:: Wolfgang Waltenberger <wolfgang.waltenberger@gmail.com>
- 
 """
- 
-import sys,os
+.. module:: testTopologyClass
+   :synopsis: Tests the theory.topology.Topology and TopologyList classes
+
+.. moduleauthor:: Andre Lessa <lessa.a.p@gmail.com>
+
+"""
+import sys
 sys.path.insert(0,"../")
 import unittest
-from databaseLoader import database
- 
-# from smodels.tools.smodelsLogging import logger, setLogLevel
-from smodels.theory.theoryPrediction import theoryPredictionsFor
-from smodels.theory.slhaDecomposer import decompose
-from smodels.tools.physicsUnits import fb
+from smodels.share.models import SMparticles, mssm
+from smodels.theory.branch import Branch
 from smodels.theory.element import Element
-from smodels.theory.topology import Topology,TopologyList 
+from smodels.theory.topology import Topology,TopologyList
+from smodels.theory.crossSection import XSection,XSectionInfo,XSectionList
+from smodels.tools.physicsUnits import TeV, fb
+
+
+
+u = SMparticles.u
+d = SMparticles.d
+t = SMparticles.t
+b = SMparticles.b
+g = SMparticles.g
+em = SMparticles.e
+nue = SMparticles.nue
+
+gluino = mssm.gluino
+st1 = mssm.st1
+n1 = mssm.n1
+n2 = mssm.n2
+n3 = mssm.n3
+n4 = mssm.n4
+
+w1 = XSectionList()
+w1.xSections.append(XSection())
+w1.xSections[0].info = XSectionInfo()
+w1.xSections[0].info.sqrts = 8.*TeV
+w1.xSections[0].info.label = '8 TeV'
+w1.xSections[0].info.order = 0
+w1.xSections[0].value = 10.*fb
+w2 = w1.copy()
+w2.xSections[0].value = 22.*fb
+w3 = w1.copy()
+w3.xSections[0].value = 2.*fb
+
+b1 = Branch()
+b1.evenParticles = [[t],[b,t]]
+b1.oddParticles = [gluino,st1,n1]
+b1b = Branch()
+b1b.evenParticles = [[t],[b,t]]
+b1b.oddParticles = [gluino,st1,n1]
+b2 = Branch()
+b2.evenParticles = [[b,t]]
+b2.oddParticles = [st1,n1]
+b1.setInfo()
+b2.setInfo()
  
-class TopoCombTest(unittest.TestCase):
-    def createSLHAFile(self,case="T1tttt"):
-        """ create slha file. case defines which case to create
-        (T1,T5,mixed ) """
-
-        ratios = { "T1": 0., "T5": 1. }
-        if case == "T1":
-            ratios = { "T1": 1., "T5": .0 }
-        if case == "mixed":
-            ratios = { "T1": .5, "T5": .5 }
-
-        fname = "%s.slha" % case
-        f=open( fname,"w")
-        f.write ( """BLOCK MASS  # Mass Spectrum
-   1000006     120.           # ~t_1
-   1000021     1200.          # ~g
-   1000022     100.           # ~chi_10
-DECAY   1000022     0.00000000E+00   # neutralino1 decays
-DECAY   1000006     1.00000000E+00   # stop1 decays
-     1.00000000E+00    2     1000022         4   # BR(~st1 -> ~chi_10 c)
-DECAY   1000021     1.00000000E+00   # gluino decays
-      %.2f              3     1000022        -6         6   # BR(~gl -> N1 tbar t)               
-      %.2f              2     1000006        -6   # BR(~g -> ~t_1  tb)
-XSECTION  1.30E+04  2212 2212 2 1000021 1000021 # 10000 events, [pb], pythia8 for LO
-  0  2  0  0  0  0    0.07           SModelSv1.1.3
-""" % ( ratios["T1"], ratios["T5"] ) )
-        f.close()
-        return fname
+el1 = Element()
+el1.branches=[b1,b2] 
+el1.weight = w1
+el2 = Element()
+el2.branches=[b2,b2]
+el2.weight = w3
+el1B = Element()
+el1B.branches = [b1b,b2]
+el1B.weight = w2
 
 
-    def testCombinedResult(self):
-        predXSecs,rvalues={},{}
-        for case in [ "T1", "T5", "mixed" ]:
-            filename = self.createSLHAFile( case=case )
-            deco = decompose ( filename )
-            expRes = database.getExpResults( analysisIDs = [ "CMS-SUS-16-050-agg" ] )[0]
-            # print ( "Experimental result: %s" % expRes )
-            tp = theoryPredictionsFor ( expRes, deco, useBestDataset=False, combinedResults=True )
-            for t in tp:
-                predXSecs[case]=t.xsection.value
-                rvalues[case]=t.getRValue(expected=True)
-            if True:
-                os.unlink ( filename )
-        ## first test: the theory prediction of the mixed scenario should be 25% of the sum
-        ## 25%, because the total cross section is a fixed quantity, and half of the mixed scenario
-        ## goes into asymmetric branches which we miss out on.
-        self.assertAlmostEqual ( (predXSecs["T1"]+predXSecs["T5"]).asNumber(fb), (4*predXSecs["mixed"]).asNumber(fb), 2 )
+class TopologyTest(unittest.TestCase):
+        
+    def testTopology(self):
+        
+        top1 = Topology(elements=[el1.copy()])
+        top2 = Topology(elements=[el2.copy()])
 
-        ## second test: the r value of the mixed scenario * 2 must be between the r values
-        ## of the pure scenarios. The factor of two comes from the fact, that we loose 50% 
-        ## to asymmetric branches
-        self.assertTrue ( rvalues["T5"] < 2*rvalues["mixed"] < rvalues["T1"] )
-        
-        
-    def testTopoComparison(self):
-        
-        el1 = Element("[[*],[[e-,e+],[mu-]]]",finalState=['MET','MET'])
-        el2 = Element("[[[mu-]],[[e-,e+],[mu-]]]",finalState=['MET','MET'])
-        el3 = Element("[[[mu-,mu+],[mu-]],[[e-,e+],[mu-]]]",finalState=['HSCP','MET'])
-        el4 = Element("[[[*,*]],[[e-,e+],[mu-]]]",finalState=['HSCP','HSCP'])
-        el5 = Element("[[[*]],[[e-,e+],[mu-]]]",finalState=['MET','MET'])
-        el6 = Element("[[['mu-']],[[mu+]]]",finalState=['MET','MET'])
-        el7 = Element("[['*'],[[mu+]]]",finalState=['MET','MET'])
-        
-        el1rev = Element("[[[e-,e+],[mu-]],[*]]",finalState=['MET','MET'])
-        el2rev = Element("[[[e-,e+],[mu-]],[[mu-]]]",finalState=['MET','MET'])
-        el3rev = Element("[[[e-,e+],[mu-]],[[mu-,mu+],[mu-]]]",finalState=['MET','HSCP'])
-        el4rev = Element("[[[e-,e+],[mu-]],[[*,*]]]",finalState=['HSCP','HSCP'])
-        el5rev = Element("[[[e-,e+],[mu-]],[[*]]]",finalState=['MET','MET'])
-        el6rev = Element("[[['mu+']],[[mu-]]]",finalState=['MET','MET'])
-        el7rev = Element("[[[mu+]],['*']]",finalState=['MET','MET'])
-        
-        
-        topo1 = Topology(elements=[el1])
-        topo2 = Topology(elements=[el2])
-        topo3 = Topology(elements=[el3])
-        topo4 = Topology(elements=[el4])
-        topo5 = Topology(elements=[el5])
-        topo6 = Topology(elements=[el6])
-        topo7 = Topology(elements=[el7])
-        topo1rev = Topology(elements=[el1rev])
-        topo2rev = Topology(elements=[el2rev])
-        topo3rev = Topology(elements=[el3rev])
-        topo4rev = Topology(elements=[el4rev])
-        topo5rev = Topology(elements=[el5rev])
-        topo6rev = Topology(elements=[el6rev])
-        topo7rev = Topology(elements=[el7rev])
+        self.assertEqual(str(top1) == "[1,2][2]", True)
+        self.assertEqual(top1 > top2, True)
+        self.assertEqual(top2.getElements() == [el2], True)
+        self.assertEqual(top1.addElement(el2), False) #Element does not match topology
+        self.assertEqual(top2._getTinfo() == {'vertnumb' : [1,1], 'vertparts' : [[2],[2]]},True)
 
-        
-        allTopos = [topo1,topo2,topo3,topo4,topo5,topo6,topo7]
-        allToposrev = [topo1rev,topo2rev,topo3rev,topo4rev,topo5rev,topo6rev,topo7rev]
-        
-        
-        answ = [True, True, True, True, True, False, True, True, False, False, 
-        True, False, True, True, False, False, False, False, True, False, 
-        False, False, True, False, True, True, True, True]
-        
-        tests = []
-        for i,topoA in enumerate(allTopos):
-            for j,topoB in enumerate(allTopos):
-                if i > j: continue
-        #         print(i+1,j+1,topoA,topoB,topoA == topoB,topoB == topoA)
-                tests.append(topoA == topoB)
-        self.assertEqual(tests,answ)                
+        top1.addElement(el1B.copy())
+        self.assertEqual(len(top1.getElements()) == 1, True)
+        self.assertEqual(top1.getElements()[0].weight[0].value == 32.*fb, True)
+        self.assertEqual(top1.getTotalWeight()[0].value == 32.*fb, True)
+        bsmparticles = [[gluino,st1,n1], [st1,n1]]
+        self.assertEqual(top1.getElements()[0].oddParticles == bsmparticles, True)
 
-        tests = []
-        for i,topoA in enumerate(allToposrev):
-            for j,topoB in enumerate(allToposrev):
-                if i > j: continue
-        #         print(i+1,j+1,topoA,topoB,topoA == topoB,topoB == topoA)
-                tests.append(topoA == topoB)
-        self.assertEqual(tests,answ)            
-        
-        tests = []
-        for i,topoA in enumerate(allTopos):
-            for j,topoB in enumerate(allToposrev):
-                if i > j: continue
-        #         print(i+1,j+1,topoA,topoB,topoA == topoB,topoB == topoA)
-                tests.append(topoA == topoB)
-        self.assertEqual(tests,answ)                
-            
 
- 
+    def testTopologyList(self):
+        
+        top1 = Topology(elements=[el1.copy()])
+        top2 = Topology(elements=[el2.copy()])
+        topL1 = TopologyList(topologies=[top1])
+        topL2 = TopologyList(topologies=[top2])
+        
+        self.assertEqual(len(topL1) == len(topL2) == 1, True)
+        self.assertEqual(top1 < top2, False) #Bigger by number of vertices
+        
+        topL = TopologyList()
+        topL.addList(topL1)
+        topL.add(top2)
+        self.assertEqual(len(topL) == 2, True)
+        self.assertEqual(topL.describe() == "TopologyList:\n[2][2]\n[1,2][2]\n", True)        
+        topL.addElement(el1B.copy())
+        self.assertEqual(topL.getTotalWeight()[0].value == 34.*fb, True)
+        
 if __name__ == "__main__":
     unittest.main()

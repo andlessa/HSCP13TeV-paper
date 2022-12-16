@@ -11,22 +11,20 @@ from smodels.experiment.databaseObj import Database,ExpResult
 import numpy, unum
 from smodels.theory.exceptions import SModelSTheoryError as SModelSError
 from smodels.tools.smodelsLogging import logger
+from smodels.theory.auxiliaryFunctions import getAttributesFrom,getValuesForObj
 
 #logger.setLevel(level=logging.INFO)
 
 class Browser(object):
 
-    """Browses the database, exits if given path does not point to a valid
+    """
+    Browses the database, exits if given path does not point to a valid
     smodels-database. Browser can be restricted to specified run or experiment.
     """
-    
+
     def __init__(self, database, force_txt = False ):
         """
-        :ivar _selectedExpResults: list of experimental results loaded in the browser.
-                           Can be used to hold a subset of results in the database.
-                           By default all results are loaded.
-        
-        
+        :param force_txt: If True forces loading the text database.
         :param database: Path to the database or Database object
         """
 
@@ -73,48 +71,21 @@ class Browser(object):
 
         self._selectedExpResults = self.database.expResultList[:]
 
-    def getValuesFor(self,attribute=None,expResult=None):
+    def getValuesFor(self,attribute,expResult=None):
         """
         Returns a list for the possible values appearing in the database
         for the required attribute (sqrts,id,constraint,...).
 
-        :param attribute: name of a field in the database (string). If not defined
-                          it will return a dictionary with all fields and their respective
-                          values
+        :param attribute: name of a field in the database (string).
         :param expResult: if defined, restricts the list to the corresponding expResult.
                           Must be an ExpResult object.
         :return: list of values
         """
 
-
-        fieldDict = []
-        if expResult and isinstance(expResult,ExpResult):
-            fieldDict = list(expResult.__dict__.items())   #Use only the entries for the expResult
+        if not expResult:
+            return getValuesForObj(self,attribute)
         else:
-            for expResult in self:
-                fieldDict += list(expResult.__dict__.items())     #Use all entries/expResults
-        valuesDict = {}
-        while fieldDict:
-            for field,value in fieldDict[:]:
-                if not '<smodels.experiment' in str(value):
-                    if not field in valuesDict: valuesDict[field] = [value]
-                    else: valuesDict[field].append(value)
-                else:
-                    if isinstance(value,list):
-                        for entry in value: fieldDict += list(entry.__dict__.items())
-                    else: fieldDict += list(value.__dict__.items())
-                fieldDict.remove((field,value))
-
-        #Try to keep only the set of unique values
-        for key,val in valuesDict.items():
-            try: valuesDict[key] = list(set(val))
-            except TypeError: pass
-        if not attribute: return valuesDict
-        elif not attribute in valuesDict:
-            logger.warning("Could not find field %s in database" % attribute)
-            return False
-        else:
-            return valuesDict[attribute]
+            return getValuesForObj(expResult,attribute)
 
 
     def getAttributes(self,showPrivate=False):
@@ -126,18 +97,16 @@ class Browser(object):
         :return: list of field names (strings)
         """
 
-        fields = self.getValuesFor().keys()
-        fields = list(set(fields))
+        attributes = getAttributesFrom(self)
 
         if not showPrivate:
-            for field in fields[:]:
-                if "_" == field[0]: fields.remove(field)
+            attributes = list(filter(lambda a: a[0] != '_', attributes))
 
-        return fields
-        
+        return attributes
+
     def getEfficiencyFor(self,expid,dataset,txname,massarray):
         """
-        Get an efficiency for the given experimental id, 
+        Get an efficiency for the given experimental id,
         the dataset name, the txname, and the massarray.
         Can only be used for EfficiencyMap-type experimental results.
         Interpolation is done, if necessary.
@@ -152,10 +121,10 @@ class Browser(object):
         #First select the experimental results matching the id and the result type:
         expres = None
         for expResult in self:
-            if expResult.getValuesFor('id')[0] != expid:
+            if expResult.globalInfo.id != expid:
                 continue
             else:
-                if 'efficiencyMap' in expResult.getValuesFor('dataType'):
+                if 'efficiencyMap' in [ds.dataInfo.dataType for ds in expResult.datasets]:
                     expres = expResult
                     break
 
@@ -169,7 +138,7 @@ class Browser(object):
 
     def getULFor(self,expid,txname,massarray, expected=False ):
         """
-        Get an upper limit for the given experimental id, the txname, 
+        Get an upper limit for the given experimental id, the txname,
         and the massarray.
         Can only be used for UL experimental results.
         Interpolation is done, if necessary.
@@ -186,10 +155,10 @@ class Browser(object):
         #First select the experimental results matching the id and the result type:
         expres = None
         for expResult in self:
-            if expResult.getValuesFor('id')[0] != expid:
+            if expResult.globalInfo.id != expid:
                 continue
             else:
-                if 'upperLimit' in expResult.getValuesFor('dataType'):
+                if 'upperLimit' in [ds.dataInfo.dataType for ds in expResult.datasets]:
                     expres = expResult
                     break
 
@@ -202,7 +171,7 @@ class Browser(object):
         for tx in txnames:
             if not tx.txName == txname:
                 continue
-            return tx.getValueFor(massarray,expected)
+            return tx.getULFor(massarray,expected)
 
         logger.warning( "Could not find TxName %s ." % (txname))
         return None
@@ -219,10 +188,10 @@ class Browser(object):
         #First select the experimental results matching the id and the result type:
         expres = None
         for expResult in self:
-            if expResult.getValuesFor('id')[0] != expid:
+            if expResult.globalInfo.id != expid:
                 continue
             else:
-                if 'efficiencyMap' in expResult.getValuesFor('dataType'):
+                if 'efficiencyMap' in [ds.dataInfo.dataType for ds in expResult.datasets]:
                     expres = expResult
                     break
 
@@ -262,17 +231,19 @@ class Browser(object):
 
         results = self.database.expResultList[:]
         for expRes in results[:]:
-            values = self.getValuesFor(attribute=None, expResult=expRes)
+            expAttributes = expRes.getAttributes()
             for tag in restrDict:
                 #Check if the restriction tag appears in the experimental result
-                if not tag in values:
+                if not tag in expAttributes:
                     results.remove(expRes)
                     break
-                vals = values[tag]
+                vals = expRes.getValuesFor(tag)
                 #If it does, check if any of the values in expResult match any of the values given
                 #as restrictions
-                if not isinstance(restrDict[tag],list): rvals = [restrDict[tag]]
-                else: rvals = restrDict[tag]
+                if not isinstance(restrDict[tag],list):
+                    rvals = [restrDict[tag]]
+                else:
+                    rvals = restrDict[tag]
                 #If there is a type mismatch, also remove
                 try: intersec = numpy.intersect1d(vals,rvals)
                 except unum.IncompatibleUnitsError:
@@ -295,9 +266,9 @@ def main(args):
 
     try:
         import IPython
-    except ImportError as e:
-        print ( "IPython is not installed. ", )
-        print ( "To use this script, please install ipython." )
+    except ImportError:
+        print("IPython is not installed.")
+        print("To use this script, please install ipython.")
         import sys
         sys.exit()
 
